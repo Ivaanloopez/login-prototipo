@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de código de barras</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; color: #000; }
+    body { background: #fff; padding: 40px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
+    .screen { background: #fff; border: 2px solid #000; padding: 28px; width: 760px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1.5px solid #000; margin-bottom: 24px; }
+    .topbar-left { display: flex; align-items: center; gap: 10px; }
+    .logo-box { width: 32px; height: 32px; border: 2px solid #000; background: #fff; flex-shrink: 0; }
+    .topbar-title { font-size: 13px; font-weight: 700; }
+    .topbar-sub { font-size: 10px; }
+    .user-chip { display: flex; align-items: center; gap: 6px; border: 1.5px solid #000; padding: 4px 10px; font-size: 10px; background: #fff; }
+    .user-dot { width: 12px; height: 12px; background: #000; flex-shrink: 0; }
+    .section-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; display: block; font-weight: 600; }
+    .section-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .section-sub { font-size: 11px; margin-bottom: 24px; }
+    .field-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: block; font-weight: 600; }
+    .btn-primary { background: #000; color: #fff; border: 2px solid #000; font-weight: 700; padding: 10px 18px; font-size: 12px; }
+    .btn-secondary { background: #fff; color: #000; border: 1.5px solid #000; font-weight: 600; padding: 9px 16px; font-size: 11px; }
+
+    .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+
+    .form-column { border: 1.5px solid #000; padding: 20px; background: #fff; }
+    .form-block-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 8px; border-bottom: 1.5px solid #000; margin-bottom: 16px; }
+    .input-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .input-box { flex: 1; height: 38px; border: 1.5px solid #000; background: #fff; display: flex; align-items: center; padding: 0 12px; font-size: 12px; font-weight: 600; }
+    .btn-search { height: 38px; padding: 0 14px; background: #000; color: #fff; border: 2px solid #000; font-size: 11px; font-weight: 700; }
+
+    .alumno-card { display: flex; gap: 14px; padding: 14px; border: 1.5px solid #000; background: #fff; }
+    .alumno-photo { width: 56px; height: 70px; border: 2px solid #000; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .photo-person { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .person-head { width: 16px; height: 16px; background: #000; }
+    .person-body { width: 24px; height: 16px; background: #000; margin-top: 2px; }
+    .alumno-info { flex: 1; }
+    .alumno-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .alumno-meta { font-size: 10px; }
+
+    .preview-column { border: 1.5px solid #000; padding: 20px; background: #fff; display: flex; flex-direction: column; }
+    .preview-area { flex: 1; border: 1.5px dashed #000; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; min-height: 240px; }
+
+    .barcode-container { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px; border: 1.5px solid #000; background: #fff; width: 100%; max-width: 280px; }
+    .barcode-label-top { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+    .barcode { display: flex; align-items: stretch; gap: 1px; height: 70px; }
+    .bar { background: #000; height: 100%; }
+    .barcode-number { font-size: 16px; font-weight: 700; letter-spacing: 0.2em; }
+    .barcode-meta { font-size: 9px; font-weight: 600; }
+
+    .preview-actions { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
+
+    .form-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1.5px solid #000; }
+    .table { border: 1.5px solid #000; }
+    .table-header { padding: 10px 14px; background: #000; color: #fff; gap: 10px; align-items: center; display: grid; grid-template-columns: 0.6fr 1.4fr 0.6fr 0.7fr 0.8fr 130px; }
+    .th { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: #fff; }
+    .table-row { padding: 12px 14px; border-bottom: 1px solid #000; gap: 10px; align-items: center; display: grid; grid-template-columns: 0.6fr 1.4fr 0.6fr 0.7fr 0.8fr 130px; }
+    .table-row:last-child { border-bottom: none; }
+    .cell-text { font-size: 11px; }
+    .cell-text-strong { font-size: 11px; font-weight: 700; }
+    .cell-text-small { font-size: 10px; }
+    .row-actions { display: flex; justify-content: flex-end; }
+    .btn-redownload { background: #fff; color: #000; border: 1.5px solid #000; font-weight: 700; padding: 6px 10px; font-size: 10px; white-space: nowrap; }
+    .pill-status { display: inline-block; border: 1.5px solid #000; padding: 3px 10px; font-size: 10px; background: #fff; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="logo-box"></div>
+        <div>
+          <div class="topbar-title">Generador de código de barras</div>
+          <div class="topbar-sub">B.G.O. "Miguel Hidalgo"</div>
+        </div>
+      </div>
+      <div class="user-chip"><div class="user-dot"></div>Luz Hernández — Administrativo</div>
+    </div>
+
+    <span class="section-label">Módulo de credenciales</span>
+    <p class="section-title">Generador de código de barras</p>
+    <p class="section-sub">Captura el NIA del alumno para generar su código de barras e imprimirlo en la credencial escolar</p>
+
+    <div class="main-grid">
+
+      <div class="form-column">
+        <div class="form-block-title">Datos del alumno</div>
+
+        <span class="field-label">NIA del alumno</span>
+        <div class="input-row">
+          <div class="input-box">240137</div>
+          <div class="btn-search">Buscar</div>
+        </div>
+
+        <div class="alumno-card">
+          <div class="alumno-photo">
+            <div class="photo-person">
+              <div class="person-head"></div>
+              <div class="person-body"></div>
+            </div>
+          </div>
+          <div class="alumno-info">
+            <div class="alumno-name">Ángel Mauricio Martínez Ruiz</div>
+            <div class="alumno-meta">Grupo 2° A · Ciclo 2025 - 2026</div>
+            <div class="alumno-meta">Estado: Activo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-column">
+        <div class="form-block-title">Vista previa</div>
+
+        <div class="preview-area">
+          <div class="barcode-container">
+            <span class="barcode-label-top">B.G.O. Miguel Hidalgo</span>
+            <div class="barcode">
+              <div class="bar" style="width:2px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:3px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:1px"></div>
+              <div class="bar" style="width:2px;background:#fff"></div>
+              <div class="bar" style="width:4px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:2px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:1px"></div>
+              <div class="bar" style="width:2px;background:#fff"></div>
+              <div class="bar" style="width:3px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:1px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:2px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:4px"></div>
+              <div class="bar" style="width:2px;background:#fff"></div>
+              <div class="bar" style="width:1px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:3px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:2px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:1px"></div>
+              <div class="bar" style="width:2px;background:#fff"></div>
+              <div class="bar" style="width:3px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:1px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:2px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:4px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:2px"></div>
+              <div class="bar" style="width:2px;background:#fff"></div>
+              <div class="bar" style="width:1px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:3px"></div>
+              <div class="bar" style="width:1px;background:#fff"></div>
+              <div class="bar" style="width:1px"></div>
+              <div class="bar" style="width:2px;background:#fff"></div>
+              <div class="bar" style="width:2px"></div>
+            </div>
+            <div class="barcode-number">240137</div>
+            <div class="barcode-meta">Ángel Mauricio Martínez Ruiz · 2° A</div>
+          </div>
+        </div>
+
+        <div class="preview-actions">
+          <div class="btn-secondary">Descargar PNG</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-section-title">Historial de códigos generados</div>
+    <div class="table">
+      <div class="table-header">
+        <div class="th">NIA</div>
+        <div class="th">Alumno</div>
+        <div class="th">Grupo</div>
+        <div class="th">Fecha</div>
+        <div class="th">Estado</div>
+        <div class="th" style="text-align:right">Acciones</div>
+      </div>
+      <div class="table-row">
+        <div class="cell-text-strong">240137</div>
+        <div class="cell-text">Ángel Mauricio Martínez Ruiz</div>
+        <div class="cell-text">2° A</div>
+        <div class="cell-text-small">05/05/2026</div>
+        <div><span class="pill-status">Generado</span></div>
+        <div class="row-actions"><div class="btn-redownload">Volver a descargar</div></div>
+      </div>
+      <div class="table-row">
+        <div class="cell-text-strong">250042</div>
+        <div class="cell-text">Sofía Itzel Ramírez López</div>
+        <div class="cell-text">1° B</div>
+        <div class="cell-text-small">05/05/2026</div>
+        <div><span class="pill-status">Generado</span></div>
+        <div class="row-actions"><div class="btn-redownload">Volver a descargar</div></div>
+      </div>
+      <div class="table-row">
+        <div class="cell-text-strong">230089</div>
+        <div class="cell-text">Diego Alejandro Castillo Vega</div>
+        <div class="cell-text">3° C</div>
+        <div class="cell-text-small">04/05/2026</div>
+        <div><span class="pill-status">Generado</span></div>
+        <div class="row-actions"><div class="btn-redownload">Volver a descargar</div></div>
+      </div>
+      <div class="table-row">
+        <div class="cell-text-strong">230154</div>
+        <div class="cell-text">Emiliano Jesús Torres Méndez</div>
+        <div class="cell-text">3° A</div>
+        <div class="cell-text-small">04/05/2026</div>
+        <div><span class="pill-status">Generado</span></div>
+        <div class="row-actions"><div class="btn-redownload">Volver a descargar</div></div>
+      </div>
+      <div class="table-row">
+        <div class="cell-text-strong">240221</div>
+        <div class="cell-text">Andrea Paola Jiménez Reyes</div>
+        <div class="cell-text">2° B</div>
+        <div class="cell-text-small">03/05/2026</div>
+        <div><span class="pill-status">Generado</span></div>
+        <div class="row-actions"><div class="btn-redownload">Volver a descargar</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
