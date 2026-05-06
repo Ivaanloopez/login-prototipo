@@ -2,144 +2,1352 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <meta name="viewport" content="width=1920, initial-scale=1.0">
+  <title>Prototipos Alta Fidelidad — B.G.O. Miguel Hidalgo</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; }
-    body { background: #f2f2f2; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-    .screen {
-      background: #fff;
-      border: 1.5px solid #ccc;
-      border-radius: 8px;
-      width: 360px;
-      padding: 32px 28px;
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #ddd;
-    }
-    .logo-box {
-      width: 38px; height: 38px;
-      border: 1.5px solid #999;
-      border-radius: 6px;
-      background: #e8e8e8;
-      flex-shrink: 0;
-    }
-    .header-text .name { font-size: 12px; font-weight: 600; color: #222; }
-    .header-text .sub { font-size: 11px; color: #888; margin-top: 2px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Segoe UI', Arial, sans-serif; background: #1a1a1a; color: #333; padding: 40px; display: flex; flex-direction: column; align-items: center; gap: 60px; }
 
-    .section-title { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 4px; }
-    .section-sub { font-size: 12px; color: #999; margin-bottom: 20px; }
+    .screen-label { width: 1920px; padding: 14px 28px; background: #800000; color: #fff; font-weight: 700; font-size: 16px; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 8px 8px 0 0; display: flex; align-items: center; gap: 12px; }
+    .screen-label i { font-size: 22px; }
+    .screen-label-sub { margin-left: auto; font-weight: 500; font-size: 12px; opacity: 0.85; text-transform: none; letter-spacing: 0; }
 
-    .field-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: block; }
+    .screen { width: 1920px; height: 1080px; background: linear-gradient(180deg, #F2F2F2 0%, #FFFFFF 100%); position: relative; overflow: hidden; display: flex; flex-direction: column; }
 
-    .role-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 18px; }
-    .role-box {
-      border: 1.5px solid #ccc;
-      border-radius: 6px;
-      padding: 12px 6px 10px;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 6px;
-      background: #fafafa;
-    }
-    .role-box.selected { border-color: #555; background: #efefef; }
-    .role-icon {
-      width: 24px; height: 24px;
-      border: 1.5px solid #aaa;
-      border-radius: 50%;
-      background: #e0e0e0;
-    }
-    .role-label { font-size: 10px; color: #444; text-align: center; }
+    /* SIDEBAR */
+    .sidebar { width: 260px; background: #FFFFFF; border-right: 1px solid #E8E8E8; display: flex; flex-direction: column; padding: 24px 18px; flex-shrink: 0; }
+    .sidebar-brand { display: flex; align-items: center; gap: 12px; padding: 8px 8px 24px; border-bottom: 1px solid #EFEFEF; }
+    .sidebar-logo { width: 44px; height: 44px; background: linear-gradient(135deg, #800000 0%, #5C0000 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sidebar-logo i { color: #fff; font-size: 22px; }
+    .sidebar-brand-text { line-height: 1.2; }
+    .sidebar-brand-name { font-size: 13px; font-weight: 700; color: #333; }
+    .sidebar-brand-sub { font-size: 11px; color: #888; margin-top: 2px; }
 
-    .input-box {
-      width: 100%;
-      height: 38px;
-      border: 1.5px solid #ccc;
-      border-radius: 6px;
-      background: #fafafa;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      padding: 0 12px;
-      gap: 8px;
-    }
-    .input-placeholder {
-      width: 16px; height: 16px;
-      border: 1px solid #bbb;
-      border-radius: 50%;
-      background: #ddd;
-      flex-shrink: 0;
-    }
-    .input-line {
-      height: 1px;
-      flex: 1;
-      background: #ddd;
-      border-radius: 2px;
-    }
+    .sidebar-section { font-size: 10px; color: #AAA; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; padding: 18px 12px 8px; }
+    .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 11px 12px; font-size: 13px; color: #555; border-radius: 8px; cursor: pointer; margin-bottom: 2px; transition: all 0.15s; }
+    .sidebar-item i { font-size: 19px; color: #888; flex-shrink: 0; }
+    .sidebar-item:hover { background: #F8F8F8; }
+    .sidebar-item.active { background: #FFF5F5; color: #800000; font-weight: 600; }
+    .sidebar-item.active i { color: #800000; }
+    .sidebar-badge { margin-left: auto; background: #800000; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
 
-    .btn {
-      width: 100%;
-      height: 40px;
-      background: #333;
-      border: none;
-      border-radius: 6px;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      margin-top: 8px;
-      cursor: default;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .sidebar-user { margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 12px; border-top: 1px solid #EFEFEF; }
+    .sidebar-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #800000, #5C0000); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+    .sidebar-user-info { flex: 1; min-width: 0; }
+    .sidebar-user-name { font-size: 12px; font-weight: 600; color: #333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sidebar-user-role { font-size: 10px; color: #888; margin-top: 2px; }
+    .sidebar-user-icon { color: #AAA; font-size: 18px; }
+
+    /* MAIN */
+    .main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .topbar { height: 70px; background: #FFFFFF; border-bottom: 1px solid #E8E8E8; padding: 0 32px; display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+    .topbar-search { flex: 1; max-width: 480px; height: 40px; border: 1.5px solid #E8E8E8; border-radius: 10px; background: #F8F8F8; display: flex; align-items: center; padding: 0 14px; gap: 10px; }
+    .topbar-search i { color: #AAA; font-size: 18px; }
+    .topbar-search-text { flex: 1; font-size: 13px; color: #AAA; }
+    .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .topbar-btn { width: 40px; height: 40px; border-radius: 10px; background: #F8F8F8; border: 1.5px solid #E8E8E8; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #555; position: relative; }
+    .topbar-btn i { font-size: 19px; }
+    .topbar-notif-dot { position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; background: #800000; border-radius: 50%; border: 2px solid #F8F8F8; }
+    .topbar-date { font-size: 12px; color: #666; padding: 0 14px; border-left: 1px solid #E8E8E8; line-height: 1.3; }
+    .topbar-date strong { color: #333; font-weight: 600; }
+
+    .content { flex: 1; padding: 28px 36px; overflow: hidden; }
+    .content-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; }
+    .content-title-block .breadcrumb { font-size: 12px; color: #888; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .content-title-block .breadcrumb i { font-size: 13px; }
+    .content-title-block h1 { font-size: 26px; font-weight: 700; color: #333; letter-spacing: -0.01em; margin-bottom: 4px; }
+    .content-title-block .sub { font-size: 13px; color: #888; }
+    .content-actions { display: flex; gap: 10px; }
+
+    /* BOTONES */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; }
+    .btn-primary { background: #800000; color: #fff; box-shadow: 0 4px 12px rgba(128,0,0,0.18); }
+    .btn-primary:hover { background: #6B0000; }
+    .btn-secondary { background: #FFFFFF; color: #555; border: 1.5px solid #E8E8E8; }
+    .btn-secondary:hover { border-color: #800000; color: #800000; }
+    .btn-icon { width: 38px; height: 38px; padding: 0; justify-content: center; }
+    .btn i { font-size: 16px; }
+
+    /* CARDS Y PANELES */
+    .card { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 20px 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+    .card-title { font-size: 14px; font-weight: 700; color: #333; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+    .card-title i { color: #800000; font-size: 18px; }
+    .card-sub { font-size: 12px; color: #888; }
+
+    /* PILLS */
+    .pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+    .pill-success { background: #E8F5E9; color: #2E7D32; }
+    .pill-danger { background: #FFEBEE; color: #800000; }
+    .pill-warning { background: #FFF3E0; color: #B45309; }
+    .pill-neutral { background: #F2F2F2; color: #555; }
+    .pill i { font-size: 12px; }
+
+    /* TABLA */
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th { text-align: left; padding: 12px 16px; font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; background: #FAFAFA; border-bottom: 1px solid #EFEFEF; }
+    .data-table td { padding: 14px 16px; font-size: 13px; color: #444; border-bottom: 1px solid #F2F2F2; }
+    .data-table tr:hover td { background: #FAFAFA; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .table-avatar { display: inline-flex; align-items: center; gap: 10px; }
+    .table-avatar-circle { width: 34px; height: 34px; border-radius: 50%; background: #F2F2F2; color: #800000; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
+    .table-avatar-info { line-height: 1.3; }
+    .table-avatar-name { font-size: 13px; font-weight: 600; color: #333; }
+    .table-avatar-mail { font-size: 11px; color: #888; }
+    .table-icon-btn { width: 30px; height: 30px; border: 1px solid #E8E8E8; border-radius: 8px; background: #fff; display: inline-flex; align-items: center; justify-content: center; color: #666; cursor: pointer; }
+    .table-icon-btn:hover { color: #800000; border-color: #800000; }
+    .table-actions { display: flex; gap: 6px; justify-content: flex-end; }
+
+    /* TABS / FILTROS */
+    .filter-row { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; }
+    .filter-pill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1.5px solid #E8E8E8; border-radius: 10px; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #555; cursor: pointer; }
+    .filter-pill i { color: #888; font-size: 15px; }
+    .filter-pill .value { color: #333; }
+    .filter-pill .arrow { color: #AAA; }
+    .filter-pill.active { border-color: #800000; color: #800000; background: #FFF5F5; }
+
+    /* LOGIN ESPECIFICO */
+    .login-screen { background: linear-gradient(180deg, #F2F2F2 0%, #FFFFFF 100%); display: flex; align-items: center; justify-content: center; padding: 40px; }
+    .login-container { width: 1280px; height: 760px; display: grid; grid-template-columns: 1fr 1fr; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.1); border: 1px solid #E8E8E8; }
+    .brand-panel { background: linear-gradient(135deg, #800000 0%, #5C0000 100%); padding: 70px 60px; color: #fff; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+    .brand-panel::before { content: ''; position: absolute; top: -120px; right: -120px; width: 360px; height: 360px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+    .brand-panel::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 280px; height: 280px; border-radius: 50%; background: rgba(255,255,255,0.03); }
+    .brand-top, .brand-bottom { position: relative; z-index: 2; }
+    .brand-logo { width: 64px; height: 64px; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 36px; }
+    .brand-logo i { font-size: 32px; color: #fff; }
+    .brand-title { font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 14px; letter-spacing: -0.02em; }
+    .brand-sub { font-size: 15px; line-height: 1.6; opacity: 0.85; max-width: 360px; }
+    .brand-feature { display: flex; align-items: center; gap: 14px; padding: 12px 0; font-size: 14px; opacity: 0.92; }
+    .brand-feature i { width: 38px; height: 38px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; }
+    .brand-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 18px 0; }
+    .brand-footer { font-size: 12px; opacity: 0.6; margin-top: 26px; }
+
+    .form-panel { padding: 70px 60px; display: flex; flex-direction: column; justify-content: center; }
+    .form-title { font-size: 30px; font-weight: 700; color: #333; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .form-sub { font-size: 14px; color: #888; line-height: 1.5; margin-bottom: 36px; }
+    .field-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 10px; display: block; }
+    .role-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 26px; }
+    .role-card { border: 1.5px solid #E8E8E8; border-radius: 12px; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; background: #fff; }
+    .role-card.active { border: 1.5px solid #800000; background: #FFF5F5; box-shadow: 0 0 0 3px rgba(128,0,0,0.06); }
+    .role-card i { font-size: 26px; color: #888; }
+    .role-card.active i { color: #800000; }
+    .role-card-label { font-size: 13px; font-weight: 600; color: #555; }
+    .role-card.active .role-card-label { color: #800000; }
+    .form-group { margin-bottom: 18px; }
+    .input-wrapper { position: relative; }
+    .input-wrapper i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #AAA; }
+    .form-input { width: 100%; height: 50px; border: 1.5px solid #E8E8E8; border-radius: 10px; padding: 0 16px 0 46px; font-size: 14px; color: #333; background: #FAFAFA; font-family: inherit; }
+    .form-row-flex { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; font-size: 13px; }
+    .checkbox-row { display: flex; align-items: center; gap: 8px; color: #666; }
+    .checkbox { width: 16px; height: 16px; border: 1.5px solid #CCC; border-radius: 4px; }
+    .forgot-link { color: #800000; font-weight: 600; }
+    .btn-login-full { width: 100%; height: 52px; background: #800000; color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(128,0,0,0.2); }
+
+    /* ESCANEO */
+    .scan-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; height: calc(100% - 80px); }
+    .scan-main { display: grid; grid-template-rows: auto 1fr; gap: 20px; }
+    .scan-camera { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 30px; display: flex; gap: 30px; align-items: center; }
+    .scan-photo-large { width: 200px; height: 240px; border-radius: 12px; background: linear-gradient(135deg, #F8F8F8, #EEE); border: 2px solid #E8E8E8; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; overflow: hidden; }
+    .scan-photo-large i { font-size: 80px; color: #BBB; }
+    .scan-photo-badge { position: absolute; top: 10px; right: 10px; background: #800000; color: #fff; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; }
+    .scan-info { flex: 1; }
+    .scan-status { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .scan-check-circle { width: 44px; height: 44px; border-radius: 50%; background: #E8F5E9; color: #2E7D32; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .scan-status-text strong { display: block; font-size: 16px; font-weight: 700; color: #333; }
+    .scan-status-text span { font-size: 12px; color: #2E7D32; font-weight: 600; }
+    .scan-name { font-size: 24px; font-weight: 700; color: #333; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .scan-meta { font-size: 13px; color: #666; margin-bottom: 18px; }
+    .scan-data-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; padding: 16px 0 0; border-top: 1px solid #EFEFEF; }
+    .scan-data-cell .lbl { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; margin-bottom: 4px; }
+    .scan-data-cell .val { font-size: 16px; color: #333; font-weight: 700; }
+    .scan-data-cell .val i { color: #800000; font-size: 16px; vertical-align: middle; }
+
+    .scan-manual { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 22px; }
+    .scan-manual-row { display: flex; gap: 10px; margin-top: 14px; }
+    .scan-manual .input-wrapper { flex: 1; }
+
+    .scan-side { display: flex; flex-direction: column; gap: 20px; }
+    .scan-side-title { font-size: 13px; font-weight: 700; color: #333; padding: 16px 22px 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #EFEFEF; }
+    .scan-side-title i { color: #800000; }
+    .scan-side-content { padding: 12px 22px 18px; }
+    .scan-side-stat { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F8F8F8; }
+    .scan-side-stat:last-child { border-bottom: none; }
+    .scan-side-stat-icon { width: 38px; height: 38px; border-radius: 10px; background: #FFF5F5; color: #800000; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .scan-side-stat-info { flex: 1; }
+    .scan-side-stat-label { font-size: 11px; color: #888; }
+    .scan-side-stat-value { font-size: 18px; font-weight: 700; color: #333; }
+
+    .scan-recent-list { padding: 6px 22px 18px; }
+    .scan-recent-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #F8F8F8; }
+    .scan-recent-item:last-child { border-bottom: none; }
+    .scan-recent-avatar { width: 32px; height: 32px; border-radius: 50%; background: #F2F2F2; color: #800000; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px; flex-shrink: 0; }
+    .scan-recent-info { flex: 1; min-width: 0; }
+    .scan-recent-name { font-size: 12px; font-weight: 600; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .scan-recent-time { font-size: 11px; color: #888; }
+
+    /* DASHBOARD */
+    .dashboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 22px; }
+    .kpi-card { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 20px 22px; }
+    .kpi-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px; }
+    .kpi-icon-success { background: #E8F5E9; color: #2E7D32; }
+    .kpi-icon-danger { background: #FFEBEE; color: #800000; }
+    .kpi-icon-warning { background: #FFF3E0; color: #B45309; }
+    .kpi-icon-info { background: #E3F2FD; color: #1565C0; }
+    .kpi-label { font-size: 12px; color: #888; margin-bottom: 4px; }
+    .kpi-value { font-size: 30px; font-weight: 700; color: #333; line-height: 1.1; letter-spacing: -0.02em; }
+    .kpi-trend { font-size: 11px; font-weight: 600; margin-top: 8px; display: flex; align-items: center; gap: 4px; }
+    .kpi-trend-up { color: #2E7D32; }
+    .kpi-trend-down { color: #800000; }
+
+    .dashboard-row-2 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 18px; margin-bottom: 18px; }
+    .panel-large { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 22px; }
+    .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .panel-title { font-size: 14px; font-weight: 700; color: #333; display: flex; align-items: center; gap: 8px; }
+    .panel-title i { color: #800000; font-size: 18px; }
+
+    .chart-bars { display: flex; align-items: flex-end; gap: 16px; height: 200px; padding-top: 20px; border-bottom: 1px solid #EFEFEF; }
+    .chart-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+    .chart-bar { width: 100%; background: linear-gradient(180deg, #800000 0%, #5C0000 100%); border-radius: 8px 8px 0 0; position: relative; }
+    .chart-bar::after { content: attr(data-val); position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700; color: #800000; }
+    .chart-bar-label { font-size: 11px; color: #666; font-weight: 600; }
+
+    .ranking-item { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid #F2F2F2; }
+    .ranking-item:last-child { border-bottom: none; }
+    .ranking-num { width: 26px; height: 26px; border-radius: 50%; background: #FFF5F5; color: #800000; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ranking-info { flex: 1; min-width: 0; }
+    .ranking-name { font-size: 13px; font-weight: 600; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ranking-sub { font-size: 11px; color: #888; }
+
+    .dashboard-row-3 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+    /* FORMULARIO ALUMNO */
+    .form-screen-grid { display: grid; grid-template-columns: 1fr 380px; gap: 24px; height: calc(100% - 80px); }
+    .form-main { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 28px; overflow: hidden; }
+    .form-section-title { font-size: 13px; font-weight: 700; color: #800000; text-transform: uppercase; letter-spacing: 0.06em; padding-bottom: 10px; border-bottom: 1px solid #EFEFEF; margin: 18px 0 16px; display: flex; align-items: center; gap: 8px; }
+    .form-section-title:first-child { margin-top: 0; }
+    .form-section-title i { font-size: 16px; }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
+    .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px 18px; }
+    .form-field-full { grid-column: 1 / -1; }
+    .form-input-display { width: 100%; height: 44px; border: 1.5px solid #E8E8E8; border-radius: 10px; padding: 0 14px; font-size: 13px; font-weight: 600; color: #333; background: #FAFAFA; display: flex; align-items: center; }
+
+    .form-side { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 18px; }
+    .photo-upload-box { width: 100%; aspect-ratio: 3/4; border: 2px dashed #E0E0E0; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: #FAFAFA; }
+    .photo-upload-icon { width: 56px; height: 56px; background: #FFF5F5; color: #800000; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+    .photo-upload-text { font-size: 13px; font-weight: 600; color: #333; }
+    .photo-upload-sub { font-size: 11px; color: #888; }
+
+    .form-actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 20px; margin-top: 20px; border-top: 1px solid #EFEFEF; }
+
+    /* HISTORIAL ALUMNO */
+    .historial-header { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 24px 28px; display: flex; align-items: center; gap: 24px; margin-bottom: 20px; }
+    .historial-photo { width: 100px; height: 120px; border-radius: 12px; background: linear-gradient(135deg, #F8F8F8, #EEE); border: 2px solid #E8E8E8; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .historial-photo i { font-size: 50px; color: #BBB; }
+    .historial-info { flex: 1; }
+    .historial-name { font-size: 24px; font-weight: 700; color: #333; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .historial-meta { font-size: 13px; color: #666; margin-bottom: 14px; display: flex; align-items: center; gap: 16px; }
+    .historial-meta-item { display: flex; align-items: center; gap: 6px; }
+    .historial-meta-item i { color: #800000; font-size: 15px; }
+    .historial-stats { display: flex; gap: 30px; padding-top: 14px; border-top: 1px solid #EFEFEF; }
+    .historial-stat-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+    .historial-stat-value { font-size: 22px; font-weight: 700; color: #333; margin-top: 2px; }
+    .historial-stat-value.danger { color: #800000; }
+    .historial-stat-value.success { color: #2E7D32; }
+
+    /* SMS */
+    .sms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; height: calc(100% - 80px); }
+    .sms-form { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 28px; }
+    .sms-target-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .sms-target { border: 1.5px solid #E8E8E8; border-radius: 12px; padding: 14px; display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+    .sms-target.active { border-color: #800000; background: #FFF5F5; box-shadow: 0 0 0 3px rgba(128,0,0,0.06); }
+    .sms-target-radio { width: 18px; height: 18px; border: 2px solid #CCC; border-radius: 50%; flex-shrink: 0; margin-top: 1px; position: relative; }
+    .sms-target.active .sms-target-radio { border-color: #800000; }
+    .sms-target.active .sms-target-radio::after { content: ''; position: absolute; top: 3px; left: 3px; width: 8px; height: 8px; border-radius: 50%; background: #800000; }
+    .sms-target-info { flex: 1; }
+    .sms-target-label { font-size: 13px; font-weight: 700; color: #333; }
+    .sms-target.active .sms-target-label { color: #800000; }
+    .sms-target-sub { font-size: 11px; color: #888; margin-top: 2px; }
+
+    .sms-textarea { width: 100%; min-height: 140px; border: 1.5px solid #E8E8E8; border-radius: 10px; padding: 14px; font-size: 13px; color: #333; background: #FAFAFA; font-family: inherit; resize: none; line-height: 1.5; }
+    .sms-counter { font-size: 11px; color: #888; margin-top: 8px; text-align: right; font-weight: 600; }
+
+    .sms-preview { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; }
+    .sms-phone { background: linear-gradient(180deg, #F2F2F2, #FAFAFA); border-radius: 18px; padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; border: 1px solid #E8E8E8; }
+    .sms-phone-header { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid #E0E0E0; }
+    .sms-phone-icon { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #800000, #5C0000); color: #fff; display: flex; align-items: center; justify-content: center; }
+    .sms-phone-info { flex: 1; }
+    .sms-phone-from { font-size: 12px; font-weight: 700; color: #333; }
+    .sms-phone-time { font-size: 10px; color: #888; }
+    .sms-bubble { background: #fff; border-radius: 16px 16px 16px 4px; padding: 14px 16px; font-size: 13px; color: #333; line-height: 1.5; box-shadow: 0 1px 3px rgba(0,0,0,0.05); max-width: 90%; }
+
+    /* CITATORIO */
+    .citatorio-grid { display: grid; grid-template-columns: 380px 1fr; gap: 24px; height: calc(100% - 80px); }
+    .citatorio-form { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+    .citatorio-doc { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 40px 50px; overflow: auto; position: relative; }
+    .doc-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 80px; font-weight: 900; color: rgba(128,0,0,0.04); letter-spacing: 0.1em; pointer-events: none; }
+    .doc-header { text-align: center; padding-bottom: 24px; border-bottom: 2px solid #800000; margin-bottom: 24px; position: relative; z-index: 1; }
+    .doc-logo-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 14px; }
+    .doc-logo { width: 50px; height: 50px; background: linear-gradient(135deg, #800000, #5C0000); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+    .doc-logo i { color: #fff; font-size: 26px; }
+    .doc-titulo { font-size: 22px; font-weight: 700; color: #800000; text-transform: uppercase; letter-spacing: 0.05em; }
+    .doc-subtitulo { font-size: 12px; color: #666; margin-top: 4px; }
+    .doc-folio { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 24px; padding: 10px 14px; background: #FAFAFA; border-radius: 8px; }
+    .doc-folio strong { color: #800000; }
+    .doc-section { margin-bottom: 18px; font-size: 13px; line-height: 1.7; color: #444; position: relative; z-index: 1; }
+    .doc-section strong { color: #333; font-weight: 700; }
+    .doc-firma { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
+    .firma-block { text-align: center; padding-top: 8px; border-top: 1.5px solid #333; }
+    .firma-name { font-size: 12px; font-weight: 700; color: #333; }
+    .firma-role { font-size: 11px; color: #666; margin-top: 2px; }
+
+    /* CÓDIGO BARRAS */
+    .barcode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+    .barcode-form-card { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 28px; }
+    .barcode-input-row { display: flex; gap: 10px; margin-bottom: 20px; }
+    .alumno-found-card { display: flex; gap: 16px; padding: 16px; background: #FFF5F5; border: 1.5px solid #FFD4D4; border-radius: 12px; align-items: center; }
+    .alumno-found-photo { width: 70px; height: 88px; border-radius: 10px; background: #fff; border: 1.5px solid #FFD4D4; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .alumno-found-photo i { font-size: 38px; color: #BBB; }
+    .alumno-found-info { flex: 1; }
+    .alumno-found-name { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 4px; }
+    .alumno-found-meta { font-size: 12px; color: #666; margin-bottom: 4px; }
+
+    .barcode-preview-card { background: #FFFFFF; border: 1px solid #EFEFEF; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; }
+    .barcode-display-area { flex: 1; border: 2px dashed #E0E0E0; border-radius: 12px; padding: 30px; display: flex; align-items: center; justify-content: center; background: #FAFAFA; }
+    .barcode-credential { background: #fff; border: 1px solid #DDD; border-radius: 10px; padding: 22px 28px; display: flex; flex-direction: column; align-items: center; gap: 12px; box-shadow: 0 4px 14px rgba(0,0,0,0.06); width: 280px; }
+    .barcode-cred-header { font-size: 10px; font-weight: 700; color: #800000; text-transform: uppercase; letter-spacing: 0.08em; }
+    .barcode-bars { display: flex; align-items: stretch; gap: 1px; height: 80px; }
+    .barcode-bars .bar { background: #000; height: 100%; }
+    .barcode-number { font-size: 18px; font-weight: 700; letter-spacing: 0.25em; color: #333; }
+    .barcode-cred-name { font-size: 11px; font-weight: 600; color: #666; }
+
+    /* USUARIOS DEL SISTEMA */
+    .usuarios-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 22px; }
+
+    /* SCROLL CONTAINERS */
+    .scrollable { overflow: auto; }
   </style>
 </head>
 <body>
-  <div class="screen">
-    <div class="header">
-      <div class="logo-box"></div>
-      <div class="header-text">
-        <div class="name">B.G.O. "Miguel Hidalgo"</div>
-        <div class="sub">Sistema de control de asistencia</div>
-      </div>
-    </div>
 
-    <p class="section-title">Acceso al sistema</p>
-    <p class="section-sub">Selecciona tu perfil e ingresa tus datos</p>
-
-    <span class="field-label">Perfil de usuario</span>
-    <div class="role-grid">
-      <div class="role-box selected">
-        <div class="role-icon"></div>
-        <span class="role-label">Director</span>
-      </div>
-      <div class="role-box">
-        <div class="role-icon"></div>
-        <span class="role-label">Administrativo</span>
-      </div>
-      <div class="role-box">
-        <div class="role-icon"></div>
-        <span class="role-label">Docente</span>
-      </div>
-    </div>
-
-    <span class="field-label">Usuario</span>
-    <div class="input-box">
-      <div class="input-placeholder"></div>
-      <div class="input-line"></div>
-    </div>
-
-    <span class="field-label">Contraseña</span>
-    <div class="input-box">
-      <div class="input-placeholder"></div>
-      <div class="input-line"></div>
-    </div>
-
-    <div class="btn">Ingresar</div>
+  <!-- ============================================
+       01 — LOGIN
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-login-2"></i>
+    01 — Inicio de sesión
+    <span class="screen-label-sub">Acceso común · Director · Administrativo · Prefecto</span>
   </div>
+  <div class="screen login-screen">
+    <div class="login-container">
+      <div class="brand-panel">
+        <div class="brand-top">
+          <div class="brand-logo"><i class="ti ti-school"></i></div>
+          <h1 class="brand-title">Sistema de control<br>de asistencia escolar</h1>
+          <p class="brand-sub">Bachillerato General Oficial<br>"Miguel Hidalgo" — Huauchinango, Pue.</p>
+        </div>
+        <div class="brand-bottom">
+          <div class="brand-divider"></div>
+          <div class="brand-feature"><i class="ti ti-scan"></i><span>Registro automático mediante credencial</span></div>
+          <div class="brand-feature"><i class="ti ti-message-2"></i><span>Notificaciones SMS en tiempo real a tutores</span></div>
+          <div class="brand-feature"><i class="ti ti-chart-bar"></i><span>Reportes e indicadores institucionales</span></div>
+          <div class="brand-divider"></div>
+          <p class="brand-footer">Ciclo escolar 2025 — 2026</p>
+        </div>
+      </div>
+      <div class="form-panel">
+        <h2 class="form-title">Iniciar sesión</h2>
+        <p class="form-sub">Ingresa con tus credenciales para acceder al sistema</p>
+        <span class="field-label">Perfil de usuario</span>
+        <div class="role-grid">
+          <div class="role-card active"><i class="ti ti-shield-check"></i><span class="role-card-label">Director</span></div>
+          <div class="role-card"><i class="ti ti-clipboard-list"></i><span class="role-card-label">Administrativo</span></div>
+          <div class="role-card"><i class="ti ti-user-shield"></i><span class="role-card-label">Prefecto</span></div>
+        </div>
+        <div class="form-group">
+          <span class="field-label">Usuario</span>
+          <div class="input-wrapper">
+            <i class="ti ti-user"></i>
+            <input type="text" class="form-input" value="lvelazquez">
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="field-label">Contraseña</span>
+          <div class="input-wrapper">
+            <i class="ti ti-lock"></i>
+            <input type="password" class="form-input" value="••••••••••">
+          </div>
+        </div>
+        <div class="form-row-flex">
+          <div class="checkbox-row"><div class="checkbox"></div>Recordar sesión</div>
+          <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+        </div>
+        <button class="btn-login-full"><i class="ti ti-login-2"></i>Ingresar al sistema</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       02 — REGISTRO DE ASISTENCIA (PREFECTO)
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-scan"></i>
+    02 — Registro de asistencia
+    <span class="screen-label-sub">Prefecto · Escaneo de credencial</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo"><i class="ti ti-school"></i></div>
+          <div class="sidebar-brand-text">
+            <div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div>
+            <div class="sidebar-brand-sub">Control de asistencia</div>
+          </div>
+        </div>
+        <div class="sidebar-section">Navegación</div>
+        <div class="sidebar-item active"><i class="ti ti-scan"></i>Registro de asistencia</div>
+        <div class="sidebar-item"><i class="ti ti-history"></i>Historial del día</div>
+        <div class="sidebar-section">Soporte</div>
+        <div class="sidebar-item"><i class="ti ti-help-circle"></i>Ayuda</div>
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">JR</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name">José Ramírez</div>
+            <div class="sidebar-user-role">Prefecto</div>
+          </div>
+          <i class="ti ti-logout sidebar-user-icon"></i>
+        </div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar alumno por NIA o nombre...</span></div>
+          <div class="topbar-actions">
+            <div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>07:52 a.m.</div>
+            <div class="topbar-btn"><i class="ti ti-bell"></i><div class="topbar-notif-dot"></div></div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block">
+              <div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Registro de asistencia</div>
+              <h1>Escaneo de credencial</h1>
+              <span class="sub">Acerca la credencial al lector o ingresa el NIA manualmente</span>
+            </div>
+            <div class="content-actions">
+              <button class="btn btn-secondary"><i class="ti ti-printer"></i>Imprimir corte</button>
+              <button class="btn btn-primary"><i class="ti ti-refresh"></i>Reiniciar lector</button>
+            </div>
+          </div>
+          <div class="scan-grid">
+            <div class="scan-main">
+              <div class="scan-camera">
+                <div class="scan-photo-large">
+                  <i class="ti ti-user-circle"></i>
+                  <div class="scan-photo-badge">2° A</div>
+                </div>
+                <div class="scan-info">
+                  <div class="scan-status">
+                    <div class="scan-check-circle"><i class="ti ti-check"></i></div>
+                    <div class="scan-status-text"><strong>Acceso confirmado</strong><span>Registro exitoso · 07:52 a.m.</span></div>
+                  </div>
+                  <div class="scan-name">Ángel Mauricio Martínez Ruiz</div>
+                  <div class="scan-meta">2° A · Bachillerato General · Ciclo 2025-2026</div>
+                  <div class="scan-data-row">
+                    <div class="scan-data-cell"><div class="lbl">NIA</div><div class="val"><i class="ti ti-id"></i> 240137</div></div>
+                    <div class="scan-data-cell"><div class="lbl">Tutor</div><div class="val"><i class="ti ti-user"></i> M. Ruiz</div></div>
+                    <div class="scan-data-cell"><div class="lbl">SMS enviado</div><div class="val"><i class="ti ti-message-check"></i> Sí</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="scan-manual">
+                <div class="card-title"><i class="ti ti-keyboard"></i>Ingreso manual</div>
+                <div class="card-sub">Si la credencial no es legible, captura el NIA del alumno</div>
+                <div class="scan-manual-row">
+                  <div class="input-wrapper" style="flex:1"><i class="ti ti-id"></i><input type="text" class="form-input" placeholder="Ingresa el NIA del alumno"></div>
+                  <button class="btn btn-primary"><i class="ti ti-check"></i>Registrar</button>
+                </div>
+              </div>
+            </div>
+            <div class="scan-side">
+              <div class="card" style="padding:0">
+                <div class="scan-side-title"><i class="ti ti-chart-pie"></i>Resumen del día</div>
+                <div class="scan-side-content">
+                  <div class="scan-side-stat"><div class="scan-side-stat-icon"><i class="ti ti-users"></i></div><div class="scan-side-stat-info"><div class="scan-side-stat-label">Alumnos esperados</div><div class="scan-side-stat-value">154</div></div></div>
+                  <div class="scan-side-stat"><div class="scan-side-stat-icon" style="background:#E8F5E9;color:#2E7D32"><i class="ti ti-circle-check"></i></div><div class="scan-side-stat-info"><div class="scan-side-stat-label">Han ingresado</div><div class="scan-side-stat-value">128</div></div></div>
+                  <div class="scan-side-stat"><div class="scan-side-stat-icon" style="background:#FFF3E0;color:#B45309"><i class="ti ti-clock-exclamation"></i></div><div class="scan-side-stat-info"><div class="scan-side-stat-label">Retardos</div><div class="scan-side-stat-value">7</div></div></div>
+                  <div class="scan-side-stat"><div class="scan-side-stat-icon"><i class="ti ti-circle-x"></i></div><div class="scan-side-stat-info"><div class="scan-side-stat-label">Pendientes</div><div class="scan-side-stat-value">19</div></div></div>
+                </div>
+              </div>
+              <div class="card" style="padding:0;flex:1">
+                <div class="scan-side-title"><i class="ti ti-history"></i>Últimos registros</div>
+                <div class="scan-recent-list">
+                  <div class="scan-recent-item"><div class="scan-recent-avatar">AM</div><div class="scan-recent-info"><div class="scan-recent-name">Ángel M. Martínez</div><div class="scan-recent-time">Hace 10 segundos</div></div><span class="pill pill-success"><i class="ti ti-check"></i>Asist.</span></div>
+                  <div class="scan-recent-item"><div class="scan-recent-avatar">SR</div><div class="scan-recent-info"><div class="scan-recent-name">Sofía I. Ramírez</div><div class="scan-recent-time">Hace 38 segundos</div></div><span class="pill pill-success"><i class="ti ti-check"></i>Asist.</span></div>
+                  <div class="scan-recent-item"><div class="scan-recent-avatar">DC</div><div class="scan-recent-info"><div class="scan-recent-name">Diego A. Castillo</div><div class="scan-recent-time">Hace 1 minuto</div></div><span class="pill pill-warning"><i class="ti ti-clock"></i>Ret.</span></div>
+                  <div class="scan-recent-item"><div class="scan-recent-avatar">ET</div><div class="scan-recent-info"><div class="scan-recent-name">Emiliano J. Torres</div><div class="scan-recent-time">Hace 2 minutos</div></div><span class="pill pill-success"><i class="ti ti-check"></i>Asist.</span></div>
+                  <div class="scan-recent-item"><div class="scan-recent-avatar">AJ</div><div class="scan-recent-info"><div class="scan-recent-name">Andrea P. Jiménez</div><div class="scan-recent-time">Hace 3 minutos</div></div><span class="pill pill-success"><i class="ti ti-check"></i>Asist.</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       03 — GESTIÓN DE ALUMNOS
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-users"></i>
+    03 — Gestión de alumnos
+    <span class="screen-label-sub">Administrativo · Altas, bajas y consultas</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo"><i class="ti ti-school"></i></div>
+          <div class="sidebar-brand-text"><div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div><div class="sidebar-brand-sub">Control de asistencia</div></div>
+        </div>
+        <div class="sidebar-section">Gestión</div>
+        <div class="sidebar-item active"><i class="ti ti-users"></i>Alumnos<span class="sidebar-badge">154</span></div>
+        <div class="sidebar-item"><i class="ti ti-user-heart"></i>Tutores</div>
+        <div class="sidebar-item"><i class="ti ti-barcode"></i>Códigos de barras</div>
+        <div class="sidebar-section">Comunicación</div>
+        <div class="sidebar-item"><i class="ti ti-message-2"></i>Mensajes SMS</div>
+        <div class="sidebar-item"><i class="ti ti-file-text"></i>Citatorios</div>
+        <div class="sidebar-section">Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-chart-bar"></i>Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-history"></i>Historial</div>
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">LH</div>
+          <div class="sidebar-user-info"><div class="sidebar-user-name">Luz Hernández</div><div class="sidebar-user-role">Administrativo</div></div>
+          <i class="ti ti-logout sidebar-user-icon"></i>
+        </div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar por nombre, NIA o tutor...</span></div>
+          <div class="topbar-actions">
+            <div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>2026</div>
+            <div class="topbar-btn"><i class="ti ti-bell"></i><div class="topbar-notif-dot"></div></div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block">
+              <div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Gestión · Alumnos</div>
+              <h1>Alumnos registrados</h1>
+              <span class="sub">Consulta, registra, edita o da de baja a los alumnos del bachillerato</span>
+            </div>
+            <div class="content-actions">
+              <button class="btn btn-secondary"><i class="ti ti-download"></i>Exportar</button>
+              <button class="btn btn-primary"><i class="ti ti-plus"></i>Nuevo alumno</button>
+            </div>
+          </div>
+
+          <div class="dashboard-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px">
+            <div class="kpi-card">
+              <div class="kpi-icon kpi-icon-info"><i class="ti ti-users"></i></div>
+              <div class="kpi-label">Total alumnos</div>
+              <div class="kpi-value">154</div>
+              <div class="kpi-trend kpi-trend-up"><i class="ti ti-trending-up"></i>+8 este ciclo</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon kpi-icon-success"><i class="ti ti-circle-check"></i></div>
+              <div class="kpi-label">Activos</div>
+              <div class="kpi-value">149</div>
+              <div class="kpi-trend kpi-trend-up"><i class="ti ti-arrow-up"></i>96.7% del total</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon kpi-icon-danger"><i class="ti ti-user-off"></i></div>
+              <div class="kpi-label">Bajas</div>
+              <div class="kpi-value">5</div>
+              <div class="kpi-trend kpi-trend-down"><i class="ti ti-arrow-down"></i>3.3% del total</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon kpi-icon-warning"><i class="ti ti-school"></i></div>
+              <div class="kpi-label">Grupos activos</div>
+              <div class="kpi-value">7</div>
+              <div class="kpi-trend"><i class="ti ti-info-circle"></i>1° a 3° grado</div>
+            </div>
+          </div>
+
+          <div class="filter-row">
+            <div class="filter-pill active"><i class="ti ti-users"></i>Todos los grupos<i class="ti ti-chevron-down arrow"></i></div>
+            <div class="filter-pill"><i class="ti ti-circle-check"></i>Estado: Activos<i class="ti ti-chevron-down arrow"></i></div>
+            <div class="filter-pill"><i class="ti ti-calendar"></i>Ciclo: 2025-2026<i class="ti ti-chevron-down arrow"></i></div>
+            <div style="margin-left:auto;font-size:12px;color:#666"><strong style="color:#333">5</strong> de 154 alumnos</div>
+          </div>
+
+          <div class="card" style="padding:0;overflow:hidden">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Alumno</th><th>NIA</th><th>Grupo</th><th>Estado</th><th>Tutor responsable</th><th>Asistencia</th><th style="text-align:right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">AM</div><div class="table-avatar-info"><div class="table-avatar-name">Ángel M. Martínez Ruiz</div><div class="table-avatar-mail">amartinez@bgomh.edu.mx</div></div></div></td>
+                  <td><strong>240137</strong></td>
+                  <td>2° A</td>
+                  <td><span class="pill pill-success"><i class="ti ti-circle-check"></i>Activo</span></td>
+                  <td>María Ruiz Hernández</td>
+                  <td><strong style="color:#2E7D32">96%</strong></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-dots-vertical"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">SR</div><div class="table-avatar-info"><div class="table-avatar-name">Sofía I. Ramírez López</div><div class="table-avatar-mail">sramirez@bgomh.edu.mx</div></div></div></td>
+                  <td><strong>250042</strong></td>
+                  <td>1° B</td>
+                  <td><span class="pill pill-success"><i class="ti ti-circle-check"></i>Activo</span></td>
+                  <td>Pedro Ramírez Cruz</td>
+                  <td><strong style="color:#2E7D32">98%</strong></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-dots-vertical"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">DC</div><div class="table-avatar-info"><div class="table-avatar-name">Diego A. Castillo Vega</div><div class="table-avatar-mail">dcastillo@bgomh.edu.mx</div></div></div></td>
+                  <td><strong>230089</strong></td>
+                  <td>3° C</td>
+                  <td><span class="pill pill-success"><i class="ti ti-circle-check"></i>Activo</span></td>
+                  <td>Laura Vega Ortiz</td>
+                  <td><strong style="color:#B45309">82%</strong></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-dots-vertical"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">VH</div><div class="table-avatar-info"><div class="table-avatar-name">Valeria E. Hernández Pérez</div><div class="table-avatar-mail">vhernandez@bgomh.edu.mx</div></div></div></td>
+                  <td><strong>240218</strong></td>
+                  <td>2° B</td>
+                  <td><span class="pill pill-danger"><i class="ti ti-user-off"></i>Baja</span></td>
+                  <td>Roberto Hernández Soto</td>
+                  <td><strong style="color:#800000">—</strong></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-dots-vertical"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">ET</div><div class="table-avatar-info"><div class="table-avatar-name">Emiliano J. Torres Méndez</div><div class="table-avatar-mail">etorres@bgomh.edu.mx</div></div></div></td>
+                  <td><strong>230154</strong></td>
+                  <td>3° A</td>
+                  <td><span class="pill pill-success"><i class="ti ti-circle-check"></i>Activo</span></td>
+                  <td>Carmen Méndez Aguilar</td>
+                  <td><strong style="color:#2E7D32">94%</strong></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-dots-vertical"></i></div></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       04 — REGISTRO / EDICIÓN ALUMNO
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-user-plus"></i>
+    04 — Registro / edición de alumno
+    <span class="screen-label-sub">Administrativo · Captura de datos personales y escolares</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><div class="sidebar-logo"><i class="ti ti-school"></i></div><div class="sidebar-brand-text"><div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div><div class="sidebar-brand-sub">Control de asistencia</div></div></div>
+        <div class="sidebar-section">Gestión</div>
+        <div class="sidebar-item active"><i class="ti ti-users"></i>Alumnos<span class="sidebar-badge">154</span></div>
+        <div class="sidebar-item"><i class="ti ti-user-heart"></i>Tutores</div>
+        <div class="sidebar-item"><i class="ti ti-barcode"></i>Códigos de barras</div>
+        <div class="sidebar-section">Comunicación</div>
+        <div class="sidebar-item"><i class="ti ti-message-2"></i>Mensajes SMS</div>
+        <div class="sidebar-item"><i class="ti ti-file-text"></i>Citatorios</div>
+        <div class="sidebar-section">Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-chart-bar"></i>Reportes</div>
+        <div class="sidebar-user"><div class="sidebar-avatar">LH</div><div class="sidebar-user-info"><div class="sidebar-user-name">Luz Hernández</div><div class="sidebar-user-role">Administrativo</div></div><i class="ti ti-logout sidebar-user-icon"></i></div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar...</span></div>
+          <div class="topbar-actions"><div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>2026</div><div class="topbar-btn"><i class="ti ti-bell"></i></div></div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block">
+              <div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Alumnos · Nuevo registro</div>
+              <h1>Registro de nuevo alumno</h1>
+              <span class="sub">Captura los datos personales, escolares y vincula al tutor responsable</span>
+            </div>
+          </div>
+          <div class="form-screen-grid">
+            <div class="form-main scrollable">
+              <div class="form-section-title"><i class="ti ti-user"></i>Información personal</div>
+              <div class="form-grid-3">
+                <div><span class="field-label">Nombre(s)</span><div class="form-input-display">Ángel Mauricio</div></div>
+                <div><span class="field-label">Apellido paterno</span><div class="form-input-display">Martínez</div></div>
+                <div><span class="field-label">Apellido materno</span><div class="form-input-display">Ruiz</div></div>
+                <div><span class="field-label">Fecha de nacimiento</span><div class="form-input-display"><i class="ti ti-calendar" style="margin-right:8px;color:#800000"></i>14/08/2008</div></div>
+                <div><span class="field-label">CURP</span><div class="form-input-display">MARA080814HHGRZNA1</div></div>
+                <div><span class="field-label">Género</span><div class="form-input-display">Masculino</div></div>
+              </div>
+              <div class="form-section-title"><i class="ti ti-school"></i>Información escolar</div>
+              <div class="form-grid-3">
+                <div><span class="field-label">NIA</span><div class="form-input-display"><i class="ti ti-id" style="margin-right:8px;color:#800000"></i>240137</div></div>
+                <div><span class="field-label">Grado</span><div class="form-input-display">2°</div></div>
+                <div><span class="field-label">Grupo</span><div class="form-input-display">A</div></div>
+                <div><span class="field-label">Ciclo escolar</span><div class="form-input-display">2025 - 2026</div></div>
+                <div><span class="field-label">Estado</span><div class="form-input-display"><span class="pill pill-success"><i class="ti ti-circle-check"></i>Activo</span></div></div>
+                <div><span class="field-label">Fecha de ingreso</span><div class="form-input-display">15/08/2024</div></div>
+              </div>
+              <div class="form-section-title"><i class="ti ti-user-heart"></i>Tutor responsable</div>
+              <div class="form-grid-2">
+                <div class="form-field-full"><span class="field-label">Nombre completo del tutor</span><div class="form-input-display">María Ruiz Hernández</div></div>
+                <div><span class="field-label">Parentesco</span><div class="form-input-display">Madre</div></div>
+                <div><span class="field-label">Teléfono celular</span><div class="form-input-display"><i class="ti ti-phone" style="margin-right:8px;color:#800000"></i>771 234 5678</div></div>
+                <div class="form-field-full"><span class="field-label">Correo electrónico</span><div class="form-input-display"><i class="ti ti-mail" style="margin-right:8px;color:#800000"></i>mruiz@gmail.com</div></div>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-secondary"><i class="ti ti-x"></i>Cancelar</button>
+                <button class="btn btn-secondary"><i class="ti ti-device-floppy"></i>Guardar borrador</button>
+                <button class="btn btn-primary"><i class="ti ti-check"></i>Guardar alumno</button>
+              </div>
+            </div>
+            <div class="form-side">
+              <div class="form-section-title" style="margin-top:0"><i class="ti ti-camera"></i>Fotografía</div>
+              <div class="photo-upload-box">
+                <div class="photo-upload-icon"><i class="ti ti-camera-plus"></i></div>
+                <div class="photo-upload-text">Subir fotografía</div>
+                <div class="photo-upload-sub">JPG o PNG · máx 2 MB</div>
+              </div>
+              <div class="form-section-title"><i class="ti ti-info-circle"></i>Datos generados</div>
+              <div style="background:#FFF5F5;border:1.5px solid #FFD4D4;border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px">
+                <div style="width:42px;height:42px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#800000"><i class="ti ti-barcode" style="font-size:22px"></i></div>
+                <div><div style="font-size:11px;color:#666;margin-bottom:2px">Código de barras</div><div style="font-size:15px;font-weight:700;color:#800000">Pendiente generar</div></div>
+              </div>
+              <div style="background:#E8F5E9;border:1.5px solid #C8E6C9;border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px">
+                <div style="width:42px;height:42px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#2E7D32"><i class="ti ti-message-check" style="font-size:22px"></i></div>
+                <div><div style="font-size:11px;color:#666;margin-bottom:2px">Notificación SMS</div><div style="font-size:15px;font-weight:700;color:#2E7D32">Activa</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       05 — GESTIÓN DE TUTORES
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-user-heart"></i>
+    05 — Gestión de tutores
+    <span class="screen-label-sub">Administrativo · Padres y responsables</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><div class="sidebar-logo"><i class="ti ti-school"></i></div><div class="sidebar-brand-text"><div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div><div class="sidebar-brand-sub">Control de asistencia</div></div></div>
+        <div class="sidebar-section">Gestión</div>
+        <div class="sidebar-item"><i class="ti ti-users"></i>Alumnos<span class="sidebar-badge">154</span></div>
+        <div class="sidebar-item active"><i class="ti ti-user-heart"></i>Tutores<span class="sidebar-badge">142</span></div>
+        <div class="sidebar-item"><i class="ti ti-barcode"></i>Códigos de barras</div>
+        <div class="sidebar-section">Comunicación</div>
+        <div class="sidebar-item"><i class="ti ti-message-2"></i>Mensajes SMS</div>
+        <div class="sidebar-item"><i class="ti ti-file-text"></i>Citatorios</div>
+        <div class="sidebar-section">Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-chart-bar"></i>Reportes</div>
+        <div class="sidebar-user"><div class="sidebar-avatar">LH</div><div class="sidebar-user-info"><div class="sidebar-user-name">Luz Hernández</div><div class="sidebar-user-role">Administrativo</div></div><i class="ti ti-logout sidebar-user-icon"></i></div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar tutor por nombre o teléfono...</span></div>
+          <div class="topbar-actions"><div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>2026</div><div class="topbar-btn"><i class="ti ti-bell"></i></div></div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block"><div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Gestión · Tutores</div><h1>Tutores y padres de familia</h1><span class="sub">Administra los datos de contacto vinculados a cada alumno para envío de notificaciones</span></div>
+            <div class="content-actions"><button class="btn btn-secondary"><i class="ti ti-download"></i>Exportar</button><button class="btn btn-primary"><i class="ti ti-plus"></i>Nuevo tutor</button></div>
+          </div>
+          <div class="dashboard-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px">
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-info"><i class="ti ti-user-heart"></i></div><div class="kpi-label">Total tutores</div><div class="kpi-value">142</div><div class="kpi-trend"><i class="ti ti-info-circle"></i>Únicos registrados</div></div>
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-success"><i class="ti ti-message-check"></i></div><div class="kpi-label">Con SMS activo</div><div class="kpi-value">138</div><div class="kpi-trend kpi-trend-up"><i class="ti ti-arrow-up"></i>97.2%</div></div>
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-warning"><i class="ti ti-mail"></i></div><div class="kpi-label">Con correo</div><div class="kpi-value">98</div><div class="kpi-trend"><i class="ti ti-info-circle"></i>69.0%</div></div>
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-danger"><i class="ti ti-alert-triangle"></i></div><div class="kpi-label">Datos por actualizar</div><div class="kpi-value">4</div><div class="kpi-trend kpi-trend-down"><i class="ti ti-arrow-down"></i>Requieren revisión</div></div>
+          </div>
+          <div class="filter-row">
+            <div class="filter-pill active"><i class="ti ti-users"></i>Todos los parentescos<i class="ti ti-chevron-down arrow"></i></div>
+            <div class="filter-pill"><i class="ti ti-message-2"></i>SMS: Activo<i class="ti ti-chevron-down arrow"></i></div>
+            <div style="margin-left:auto;font-size:12px;color:#666"><strong style="color:#333">5</strong> de 142 tutores</div>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <table class="data-table">
+              <thead><tr><th>Tutor</th><th>Parentesco</th><th>Teléfono</th><th>Correo</th><th>Alumnos vinculados</th><th>SMS</th><th style="text-align:right">Acciones</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">MR</div><div class="table-avatar-info"><div class="table-avatar-name">María Ruiz Hernández</div><div class="table-avatar-mail">mruiz@gmail.com</div></div></div></td>
+                  <td>Madre</td><td><strong>771 234 5678</strong></td><td>mruiz@gmail.com</td><td>Ángel M. Martínez Ruiz</td><td><span class="pill pill-success"><i class="ti ti-check"></i>Activo</span></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-message-2"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">PR</div><div class="table-avatar-info"><div class="table-avatar-name">Pedro Ramírez Cruz</div><div class="table-avatar-mail">pramirez@gmail.com</div></div></div></td>
+                  <td>Padre</td><td><strong>771 412 9087</strong></td><td>pramirez@gmail.com</td><td>Sofía I. Ramírez López</td><td><span class="pill pill-success"><i class="ti ti-check"></i>Activo</span></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-message-2"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">LV</div><div class="table-avatar-info"><div class="table-avatar-name">Laura Vega Ortiz</div><div class="table-avatar-mail">lvega@hotmail.com</div></div></div></td>
+                  <td>Madre</td><td><strong>771 567 1234</strong></td><td>lvega@hotmail.com</td><td>Diego A. Castillo Vega</td><td><span class="pill pill-success"><i class="ti ti-check"></i>Activo</span></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-message-2"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">RH</div><div class="table-avatar-info"><div class="table-avatar-name">Roberto Hernández Soto</div><div class="table-avatar-mail">rhernandez@gmail.com</div></div></div></td>
+                  <td>Padre</td><td><strong>771 332 5567</strong></td><td>rhernandez@gmail.com</td><td>Valeria E. Hernández Pérez</td><td><span class="pill pill-warning"><i class="ti ti-clock"></i>Pausado</span></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-message-2"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">CM</div><div class="table-avatar-info"><div class="table-avatar-name">Carmen Méndez Aguilar</div><div class="table-avatar-mail">cmendez@gmail.com</div></div></div></td>
+                  <td>Madre</td><td><strong>771 891 4453</strong></td><td>cmendez@gmail.com</td><td>Emiliano J. Torres Méndez</td><td><span class="pill pill-success"><i class="ti ti-check"></i>Activo</span></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-message-2"></i></div></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       06 — HISTORIAL DE ASISTENCIA
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-history"></i>
+    06 — Historial de asistencia individual
+    <span class="screen-label-sub">Administrativo · Expediente del alumno</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><div class="sidebar-logo"><i class="ti ti-school"></i></div><div class="sidebar-brand-text"><div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div><div class="sidebar-brand-sub">Control de asistencia</div></div></div>
+        <div class="sidebar-section">Gestión</div>
+        <div class="sidebar-item"><i class="ti ti-users"></i>Alumnos</div>
+        <div class="sidebar-item"><i class="ti ti-user-heart"></i>Tutores</div>
+        <div class="sidebar-item"><i class="ti ti-barcode"></i>Códigos de barras</div>
+        <div class="sidebar-section">Comunicación</div>
+        <div class="sidebar-item"><i class="ti ti-message-2"></i>Mensajes SMS</div>
+        <div class="sidebar-item"><i class="ti ti-file-text"></i>Citatorios</div>
+        <div class="sidebar-section">Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-chart-bar"></i>Reportes</div>
+        <div class="sidebar-item active"><i class="ti ti-history"></i>Historial</div>
+        <div class="sidebar-user"><div class="sidebar-avatar">LH</div><div class="sidebar-user-info"><div class="sidebar-user-name">Luz Hernández</div><div class="sidebar-user-role">Administrativo</div></div><i class="ti ti-logout sidebar-user-icon"></i></div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar alumno...</span></div>
+          <div class="topbar-actions"><div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>2026</div><div class="topbar-btn"><i class="ti ti-bell"></i></div></div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block"><div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Alumnos · Historial</div><h1>Expediente de asistencia</h1><span class="sub">Consulta detallada de asistencias, retardos e inasistencias del alumno seleccionado</span></div>
+            <div class="content-actions"><button class="btn btn-secondary"><i class="ti ti-download"></i>Exportar</button><button class="btn btn-primary"><i class="ti ti-file-text"></i>Generar citatorio</button></div>
+          </div>
+          <div class="historial-header">
+            <div class="historial-photo"><i class="ti ti-user-circle"></i></div>
+            <div class="historial-info">
+              <div class="historial-name">Carlos Manuel Sánchez Ortiz</div>
+              <div class="historial-meta">
+                <div class="historial-meta-item"><i class="ti ti-id"></i>NIA: <strong>240219</strong></div>
+                <div class="historial-meta-item"><i class="ti ti-school"></i>Grupo: <strong>2° B</strong></div>
+                <div class="historial-meta-item"><i class="ti ti-calendar"></i>Ciclo 2025-2026</div>
+                <div class="historial-meta-item"><i class="ti ti-user-heart"></i>Tutora: Mariana Ortiz · 771 445 7889</div>
+              </div>
+              <div class="historial-stats">
+                <div><div class="historial-stat-label">Asistencias</div><div class="historial-stat-value success">28</div></div>
+                <div><div class="historial-stat-label">Inasistencias</div><div class="historial-stat-value danger">8</div></div>
+                <div><div class="historial-stat-label">Retardos</div><div class="historial-stat-value">2</div></div>
+                <div><div class="historial-stat-label">Justificadas</div><div class="historial-stat-value">0</div></div>
+                <div><div class="historial-stat-label">% Asistencia</div><div class="historial-stat-value danger">73.7%</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="filter-row">
+            <div class="filter-pill active"><i class="ti ti-calendar"></i>Corte: 2° parcial<i class="ti ti-chevron-down arrow"></i></div>
+            <div class="filter-pill"><i class="ti ti-list"></i>Tipo: Todos<i class="ti ti-chevron-down arrow"></i></div>
+            <div class="filter-pill"><i class="ti ti-calendar-event"></i>Abr - May 2026<i class="ti ti-chevron-down arrow"></i></div>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <table class="data-table">
+              <thead><tr><th>Fecha</th><th>Día</th><th>Hora ingreso</th><th>Tipo</th><th>Estado</th><th>SMS enviado</th><th style="text-align:right">Acción</th></tr></thead>
+              <tbody>
+                <tr><td><strong>05/05/2026</strong></td><td>Martes</td><td>07:48 a.m.</td><td>Ingreso</td><td><span class="pill pill-success"><i class="ti ti-circle-check"></i>Asistencia</span></td><td><span class="pill pill-success"><i class="ti ti-check"></i>Sí</span></td><td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div></div></td></tr>
+                <tr><td><strong>04/05/2026</strong></td><td>Lunes</td><td>—</td><td>Sin registro</td><td><span class="pill pill-danger"><i class="ti ti-x"></i>Inasistencia</span></td><td><span class="pill pill-success"><i class="ti ti-check"></i>Sí</span></td><td><div class="table-actions"><button class="btn btn-secondary" style="padding:5px 12px;font-size:11px"><i class="ti ti-file-check"></i>Justificar</button></div></td></tr>
+                <tr><td><strong>03/05/2026</strong></td><td>Domingo</td><td>—</td><td>Día festivo</td><td><span class="pill pill-neutral"><i class="ti ti-calendar-off"></i>No aplica</span></td><td>—</td><td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div></div></td></tr>
+                <tr><td><strong>02/05/2026</strong></td><td>Sábado</td><td>—</td><td>Día festivo</td><td><span class="pill pill-neutral"><i class="ti ti-calendar-off"></i>No aplica</span></td><td>—</td><td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div></div></td></tr>
+                <tr><td><strong>01/05/2026</strong></td><td>Viernes</td><td>08:14 a.m.</td><td>Ingreso</td><td><span class="pill pill-warning"><i class="ti ti-clock"></i>Retardo</span></td><td><span class="pill pill-success"><i class="ti ti-check"></i>Sí</span></td><td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div></div></td></tr>
+                <tr><td><strong>30/04/2026</strong></td><td>Jueves</td><td>07:51 a.m.</td><td>Ingreso</td><td><span class="pill pill-success"><i class="ti ti-circle-check"></i>Asistencia</span></td><td>—</td><td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-eye"></i></div></div></td></tr>
+                <tr><td><strong>29/04/2026</strong></td><td>Miércoles</td><td>—</td><td>Sin registro</td><td><span class="pill pill-danger"><i class="ti ti-x"></i>Inasistencia</span></td><td><span class="pill pill-success"><i class="ti ti-check"></i>Sí</span></td><td><div class="table-actions"><button class="btn btn-secondary" style="padding:5px 12px;font-size:11px"><i class="ti ti-file-check"></i>Justificar</button></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       07 — REPORTES Y CONSULTAS
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-chart-bar"></i>
+    07 — Reportes y consultas de asistencia
+    <span class="screen-label-sub">Administrativo · Generación y exportación</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><div class="sidebar-logo"><i class="ti ti-school"></i></div><div class="sidebar-brand-text"><div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div><div class="sidebar-brand-sub">Control de asistencia</div></div></div>
+        <div class="sidebar-section">Gestión</div>
+        <div class="sidebar-item"><i class="ti ti-users"></i>Alumnos</div>
+        <div class="sidebar-item"><i class="ti ti-user-heart"></i>Tutores</div>
+        <div class="sidebar-item"><i class="ti ti-barcode"></i>Códigos de barras</div>
+        <div class="sidebar-section">Comunicación</div>
+        <div class="sidebar-item"><i class="ti ti-message-2"></i>Mensajes SMS</div>
+        <div class="sidebar-item"><i class="ti ti-file-text"></i>Citatorios</div>
+        <div class="sidebar-section">Reportes</div>
+        <div class="sidebar-item active"><i class="ti ti-chart-bar"></i>Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-history"></i>Historial</div>
+        <div class="sidebar-user"><div class="sidebar-avatar">LH</div><div class="sidebar-user-info"><div class="sidebar-user-name">Luz Hernández</div><div class="sidebar-user-role">Administrativo</div></div><i class="ti ti-logout sidebar-user-icon"></i></div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar...</span></div>
+          <div class="topbar-actions"><div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>2026</div><div class="topbar-btn"><i class="ti ti-bell"></i></div></div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block"><div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Reportes</div><h1>Consulta de asistencia e inasistencias</h1><span class="sub">Genera reportes detallados por grupo, corte o periodo y expórtalos para captura institucional</span></div>
+            <div class="content-actions"><button class="btn btn-secondary"><i class="ti ti-printer"></i>Imprimir</button><button class="btn btn-primary"><i class="ti ti-file-export"></i>Exportar Excel</button></div>
+          </div>
+          <div class="filter-row" style="background:#FFFFFF;border:1px solid #EFEFEF;border-radius:14px;padding:18px 22px;margin-bottom:20px">
+            <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;margin-right:8px">Filtros</div>
+            <div class="filter-pill active"><i class="ti ti-calendar"></i>Corte: <span class="value">2° parcial</span><i class="ti ti-chevron-down arrow"></i></div>
+            <div class="filter-pill active"><i class="ti ti-school"></i>Grupo: <span class="value">2° B</span><i class="ti ti-chevron-down arrow"></i></div>
+            <div class="filter-pill"><i class="ti ti-calendar-event"></i>Desde: <span class="value">01/04/2026</span></div>
+            <div class="filter-pill"><i class="ti ti-calendar-event"></i>Hasta: <span class="value">05/05/2026</span></div>
+            <div style="margin-left:auto;display:flex;gap:8px"><button class="btn btn-secondary" style="padding:8px 14px"><i class="ti ti-x"></i>Limpiar</button><button class="btn btn-primary" style="padding:8px 14px"><i class="ti ti-filter"></i>Aplicar</button></div>
+          </div>
+          <div class="dashboard-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:18px">
+            <div class="kpi-card" style="padding:16px"><div class="kpi-icon kpi-icon-info" style="width:36px;height:36px;font-size:18px;margin-bottom:10px"><i class="ti ti-users"></i></div><div class="kpi-label">Alumnos</div><div class="kpi-value" style="font-size:24px">22</div></div>
+            <div class="kpi-card" style="padding:16px"><div class="kpi-icon kpi-icon-success" style="width:36px;height:36px;font-size:18px;margin-bottom:10px"><i class="ti ti-circle-check"></i></div><div class="kpi-label">Asistencias</div><div class="kpi-value" style="font-size:24px">734</div></div>
+            <div class="kpi-card" style="padding:16px"><div class="kpi-icon kpi-icon-danger" style="width:36px;height:36px;font-size:18px;margin-bottom:10px"><i class="ti ti-x"></i></div><div class="kpi-label">Inasistencias</div><div class="kpi-value" style="font-size:24px">42</div></div>
+            <div class="kpi-card" style="padding:16px"><div class="kpi-icon kpi-icon-warning" style="width:36px;height:36px;font-size:18px;margin-bottom:10px"><i class="ti ti-clock"></i></div><div class="kpi-label">Retardos</div><div class="kpi-value" style="font-size:24px">18</div></div>
+            <div class="kpi-card" style="padding:16px"><div class="kpi-icon kpi-icon-info" style="width:36px;height:36px;font-size:18px;margin-bottom:10px"><i class="ti ti-file-check"></i></div><div class="kpi-label">Justificadas</div><div class="kpi-value" style="font-size:24px">7</div></div>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <table class="data-table">
+              <thead><tr><th>Alumno</th><th>NIA</th><th>Grupo</th><th>Asistencias</th><th>Inasistencias</th><th>Retardos</th><th>Justificadas</th><th>% Asistencia</th></tr></thead>
+              <tbody>
+                <tr><td><div class="table-avatar"><div class="table-avatar-circle">CS</div><div class="table-avatar-info"><div class="table-avatar-name">Carlos M. Sánchez Ortiz</div><div class="table-avatar-mail">csanchez@bgomh.edu.mx</div></div></div></td><td><strong>240219</strong></td><td>2° B</td><td><strong>28</strong></td><td><strong style="color:#800000">8</strong></td><td>2</td><td>0</td><td><strong style="color:#800000">73.7%</strong></td></tr>
+                <tr><td><div class="table-avatar"><div class="table-avatar-circle">VH</div><div class="table-avatar-info"><div class="table-avatar-name">Valeria E. Hernández Pérez</div><div class="table-avatar-mail">vhernandez@bgomh.edu.mx</div></div></div></td><td><strong>240218</strong></td><td>2° B</td><td><strong>29</strong></td><td><strong style="color:#800000">7</strong></td><td>1</td><td>1</td><td><strong style="color:#B45309">76.3%</strong></td></tr>
+                <tr><td><div class="table-avatar"><div class="table-avatar-circle">AJ</div><div class="table-avatar-info"><div class="table-avatar-name">Andrea P. Jiménez Reyes</div><div class="table-avatar-mail">ajimenez@bgomh.edu.mx</div></div></div></td><td><strong>240221</strong></td><td>2° B</td><td><strong>35</strong></td><td>2</td><td>0</td><td>1</td><td><strong style="color:#2E7D32">92.1%</strong></td></tr>
+                <tr><td><div class="table-avatar"><div class="table-avatar-circle">RP</div><div class="table-avatar-info"><div class="table-avatar-name">Roberto I. Pérez Castañeda</div><div class="table-avatar-mail">rperez@bgomh.edu.mx</div></div></div></td><td><strong>240224</strong></td><td>2° B</td><td><strong>37</strong></td><td>0</td><td>1</td><td>0</td><td><strong style="color:#2E7D32">97.4%</strong></td></tr>
+                <tr><td><div class="table-avatar"><div class="table-avatar-circle">DC</div><div class="table-avatar-info"><div class="table-avatar-name">Daniela R. Cruz Mejía</div><div class="table-avatar-mail">dcruz@bgomh.edu.mx</div></div></div></td><td><strong>240226</strong></td><td>2° B</td><td><strong>33</strong></td><td>3</td><td>2</td><td>1</td><td><strong style="color:#2E7D32">86.8%</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       08 — ENVÍO DE NOTIFICACIONES SMS
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-message-2"></i>
+    08 — Envío de notificaciones SMS
+    <span class="screen-label-sub">Administrativo · Comunicación con tutores · LabsMobile API</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><div class="sidebar-logo"><i class="ti ti-school"></i></div><div class="sidebar-brand-text"><div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div><div class="sidebar-brand-sub">Control de asistencia</div></div></div>
+        <div class="sidebar-section">Gestión</div>
+        <div class="sidebar-item"><i class="ti ti-users"></i>Alumnos</div>
+        <div class="sidebar-item"><i class="ti ti-user-heart"></i>Tutores</div>
+        <div class="sidebar-item"><i class="ti ti-barcode"></i>Códigos de barras</div>
+        <div class="sidebar-section">Comunicación</div>
+        <div class="sidebar-item active"><i class="ti ti-message-2"></i>Mensajes SMS</div>
+        <div class="sidebar-item"><i class="ti ti-file-text"></i>Citatorios</div>
+        <div class="sidebar-section">Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-chart-bar"></i>Reportes</div>
+        <div class="sidebar-user"><div class="sidebar-avatar">LH</div><div class="sidebar-user-info"><div class="sidebar-user-name">Luz Hernández</div><div class="sidebar-user-role">Administrativo</div></div><i class="ti ti-logout sidebar-user-icon"></i></div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar...</span></div>
+          <div class="topbar-actions"><div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>2026</div><div class="topbar-btn"><i class="ti ti-bell"></i></div></div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block"><div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Comunicación · Mensajes SMS</div><h1>Envío de mensajes a tutores</h1><span class="sub">Redacta comunicados o avisos masivos a tutores mediante el servicio LabsMobile</span></div>
+            <div class="content-actions"><button class="btn btn-secondary"><i class="ti ti-history"></i>Ver historial</button></div>
+          </div>
+          <div class="sms-grid">
+            <div class="sms-form">
+              <div class="form-section-title" style="margin-top:0"><i class="ti ti-users"></i>Selecciona destinatarios</div>
+              <div class="sms-target-row">
+                <div class="sms-target"><div class="sms-target-radio"></div><div class="sms-target-info"><div class="sms-target-label">Todos los tutores</div><div class="sms-target-sub">142 destinatarios</div></div></div>
+                <div class="sms-target active"><div class="sms-target-radio"></div><div class="sms-target-info"><div class="sms-target-label">Por grupo</div><div class="sms-target-sub">2° B · 22 destinatarios</div></div></div>
+                <div class="sms-target"><div class="sms-target-radio"></div><div class="sms-target-info"><div class="sms-target-label">Selección manual</div><div class="sms-target-sub">Elegir tutores</div></div></div>
+              </div>
+              <div class="form-section-title"><i class="ti ti-pencil"></i>Mensaje</div>
+              <span class="field-label">Asunto / Plantilla</span>
+              <div class="form-input-display" style="margin-bottom:14px"><i class="ti ti-template" style="margin-right:8px;color:#800000"></i>Suspensión de clases</div>
+              <span class="field-label">Contenido del mensaje</span>
+              <textarea class="sms-textarea" readonly>Estimado tutor, le informamos que el día jueves 7 de mayo no habrá clases por consejo técnico escolar. Las actividades se reanudan el viernes 8 en horario regular. B.G.O. Miguel Hidalgo.</textarea>
+              <div class="sms-counter">228 / 320 caracteres · 2 SMS por destinatario</div>
+              <div style="background:#FFF5F5;border:1.5px solid #FFD4D4;border-radius:10px;padding:14px;margin-top:18px;display:flex;align-items:center;gap:12px">
+                <i class="ti ti-coin" style="font-size:24px;color:#800000"></i>
+                <div style="flex:1"><div style="font-size:11px;color:#666">Costo estimado del envío</div><div style="font-size:18px;font-weight:700;color:#800000">$11.71 MXN</div><div style="font-size:10px;color:#888">22 mensajes × $0.266 + IVA</div></div>
+              </div>
+              <div class="form-actions"><button class="btn btn-secondary"><i class="ti ti-x"></i>Cancelar</button><button class="btn btn-primary"><i class="ti ti-send"></i>Enviar comunicado</button></div>
+            </div>
+            <div class="sms-preview">
+              <div class="form-section-title" style="margin-top:0"><i class="ti ti-device-mobile"></i>Vista previa</div>
+              <div class="sms-phone">
+                <div class="sms-phone-header">
+                  <div class="sms-phone-icon"><i class="ti ti-school"></i></div>
+                  <div class="sms-phone-info"><div class="sms-phone-from">B.G.O. Miguel Hidalgo</div><div class="sms-phone-time">Hoy · 14:22</div></div>
+                </div>
+                <div class="sms-bubble">Estimado tutor, le informamos que el día jueves 7 de mayo no habrá clases por consejo técnico escolar. Las actividades se reanudan el viernes 8 en horario regular. B.G.O. Miguel Hidalgo.</div>
+                <div style="text-align:center;font-size:10px;color:#AAA;margin-top:auto;padding-top:14px">Mensaje enviado vía LabsMobile API</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       09 — GENERACIÓN DE CITATORIO
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-file-text"></i>
+    09 — Generación de citatorio
+    <span class="screen-label-sub">Administrativo · Documento oficial</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><div class="sidebar-logo"><i class="ti ti-school"></i></div><div class="sidebar-brand-text"><div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div><div class="sidebar-brand-sub">Control de asistencia</div></div></div>
+        <div class="sidebar-section">Gestión</div>
+        <div class="sidebar-item"><i class="ti ti-users"></i>Alumnos</div>
+        <div class="sidebar-item"><i class="ti ti-user-heart"></i>Tutores</div>
+        <div class="sidebar-item"><i class="ti ti-barcode"></i>Códigos de barras</div>
+        <div class="sidebar-section">Comunicación</div>
+        <div class="sidebar-item"><i class="ti ti-message-2"></i>Mensajes SMS</div>
+        <div class="sidebar-item active"><i class="ti ti-file-text"></i>Citatorios</div>
+        <div class="sidebar-section">Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-chart-bar"></i>Reportes</div>
+        <div class="sidebar-user"><div class="sidebar-avatar">LH</div><div class="sidebar-user-info"><div class="sidebar-user-name">Luz Hernández</div><div class="sidebar-user-role">Administrativo</div></div><i class="ti ti-logout sidebar-user-icon"></i></div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar...</span></div>
+          <div class="topbar-actions"><div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>2026</div><div class="topbar-btn"><i class="ti ti-bell"></i></div></div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block"><div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Comunicación · Citatorios</div><h1>Generar nuevo citatorio</h1><span class="sub">Documento oficial para citar al tutor por incidencias acumuladas del alumno</span></div>
+            <div class="content-actions"><button class="btn btn-secondary"><i class="ti ti-printer"></i>Imprimir</button><button class="btn btn-primary"><i class="ti ti-check"></i>Generar y guardar</button></div>
+          </div>
+          <div class="citatorio-grid">
+            <div class="citatorio-form">
+              <div class="form-section-title" style="margin-top:0"><i class="ti ti-user"></i>Datos del citatorio</div>
+              <div><span class="field-label">Alumno</span><div class="form-input-display"><i class="ti ti-user" style="margin-right:8px;color:#800000"></i>Carlos M. Sánchez Ortiz</div></div>
+              <div><span class="field-label">NIA / Grupo</span><div class="form-input-display"><i class="ti ti-id" style="margin-right:8px;color:#800000"></i>240219 · 2° B</div></div>
+              <div><span class="field-label">Tutor responsable</span><div class="form-input-display"><i class="ti ti-user-heart" style="margin-right:8px;color:#800000"></i>Mariana Ortiz Vázquez</div></div>
+              <div><span class="field-label">Motivo del citatorio</span><div class="form-input-display"><i class="ti ti-alert-triangle" style="margin-right:8px;color:#800000"></i>Acumulación de inasistencias</div></div>
+              <div><span class="field-label">Fecha de la cita</span><div class="form-input-display"><i class="ti ti-calendar" style="margin-right:8px;color:#800000"></i>08/05/2026 · 12:00 hrs</div></div>
+              <div style="background:#FFF5F5;border:1.5px solid #FFD4D4;border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;margin-top:auto">
+                <i class="ti ti-info-circle" style="font-size:22px;color:#800000;flex-shrink:0"></i>
+                <div style="font-size:11px;color:#666;line-height:1.5">El citatorio será enviado por SMS al tutor automáticamente al generarse.</div>
+              </div>
+            </div>
+            <div class="citatorio-doc scrollable">
+              <div class="doc-watermark">B.G.O.</div>
+              <div class="doc-header">
+                <div class="doc-logo-row"><div class="doc-logo"><i class="ti ti-school"></i></div></div>
+                <div class="doc-titulo">Citatorio</div>
+                <div class="doc-subtitulo">Bachillerato General Oficial "Miguel Hidalgo" — Huauchinango, Puebla</div>
+              </div>
+              <div class="doc-folio"><span>Folio: <strong>CIT-2026-0142</strong></span><span>Fecha de emisión: <strong>05/05/2026</strong></span></div>
+              <div class="doc-section"><strong>C. Mariana Ortiz Vázquez</strong><br>Tutor responsable del alumno <strong>Carlos Manuel Sánchez Ortiz</strong>, con NIA 240219, inscrito en el grupo <strong>2° B</strong>.</div>
+              <div class="doc-section">Por medio del presente se le solicita su presencia en las instalaciones del bachillerato el día <strong>viernes 8 de mayo de 2026</strong> a las <strong>12:00 hrs</strong>, debido a que el alumno ha acumulado <strong>8 inasistencias</strong> y <strong>2 retardos</strong> durante el segundo corte parcial del ciclo escolar 2025-2026, lo que conforme al reglamento institucional amerita su intervención inmediata.</div>
+              <div class="doc-section">Es importante señalar que la acumulación de cinco inasistencias consecutivas puede derivar en la baja del alumno, por lo que solicitamos su asistencia con carácter de urgente.</div>
+              <div class="doc-section">Sin más por el momento, agradecemos su atención y puntual asistencia.</div>
+              <div class="doc-firma">
+                <div class="firma-block"><div class="firma-name">Lara Velázquez Liberato</div><div class="firma-role">Director del plantel</div></div>
+                <div class="firma-block"><div class="firma-name">Luz Hernández Aguilar</div><div class="firma-role">Coordinación administrativa</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       10 — PANEL DEL DIRECTOR
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-layout-dashboard"></i>
+    10 — Panel del director
+    <span class="screen-label-sub">Director · Indicadores institucionales</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><div class="sidebar-logo"><i class="ti ti-school"></i></div><div class="sidebar-brand-text"><div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div><div class="sidebar-brand-sub">Control de asistencia</div></div></div>
+        <div class="sidebar-section">Dirección</div>
+        <div class="sidebar-item active"><i class="ti ti-layout-dashboard"></i>Panel general</div>
+        <div class="sidebar-item"><i class="ti ti-users-group"></i>Usuarios del sistema</div>
+        <div class="sidebar-section">Gestión</div>
+        <div class="sidebar-item"><i class="ti ti-users"></i>Alumnos<span class="sidebar-badge">154</span></div>
+        <div class="sidebar-item"><i class="ti ti-user-heart"></i>Tutores</div>
+        <div class="sidebar-item"><i class="ti ti-barcode"></i>Códigos de barras</div>
+        <div class="sidebar-section">Comunicación</div>
+        <div class="sidebar-item"><i class="ti ti-message-2"></i>Mensajes SMS</div>
+        <div class="sidebar-item"><i class="ti ti-file-text"></i>Citatorios</div>
+        <div class="sidebar-section">Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-chart-bar"></i>Reportes</div>
+        <div class="sidebar-user"><div class="sidebar-avatar">LV</div><div class="sidebar-user-info"><div class="sidebar-user-name">Lara Velázquez</div><div class="sidebar-user-role">Director</div></div><i class="ti ti-logout sidebar-user-icon"></i></div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar en el sistema...</span></div>
+          <div class="topbar-actions"><div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>2026 · 09:14</div><div class="topbar-btn"><i class="ti ti-bell"></i><div class="topbar-notif-dot"></div></div></div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block"><div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Panel del director</div><h1>Bienvenida, Lara Velázquez</h1><span class="sub">Resumen general del corte 2° parcial · ciclo 2025-2026</span></div>
+            <div class="content-actions">
+              <div class="filter-pill"><i class="ti ti-calendar"></i>Corte: 2° parcial<i class="ti ti-chevron-down arrow"></i></div>
+              <button class="btn btn-primary"><i class="ti ti-file-export"></i>Exportar reporte</button>
+            </div>
+          </div>
+          <div class="dashboard-grid">
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-success"><i class="ti ti-circle-check"></i></div><div class="kpi-label">Asistencias</div><div class="kpi-value">5,842</div><div class="kpi-trend kpi-trend-up"><i class="ti ti-trending-up"></i>94.3% del total</div></div>
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-danger"><i class="ti ti-x"></i></div><div class="kpi-label">Inasistencias</div><div class="kpi-value">218</div><div class="kpi-trend kpi-trend-down"><i class="ti ti-trending-down"></i>3.5% del total</div></div>
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-warning"><i class="ti ti-clock"></i></div><div class="kpi-label">Retardos</div><div class="kpi-value">87</div><div class="kpi-trend"><i class="ti ti-info-circle"></i>1.4% del total</div></div>
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-info"><i class="ti ti-file-check"></i></div><div class="kpi-label">Justificados</div><div class="kpi-value">49</div><div class="kpi-trend"><i class="ti ti-info-circle"></i>0.8% del total</div></div>
+          </div>
+          <div class="dashboard-row-2">
+            <div class="panel-large">
+              <div class="panel-header"><div class="panel-title"><i class="ti ti-chart-bar"></i>Asistencia por grupo</div><div class="filter-pill"><i class="ti ti-calendar"></i>Abril - Mayo<i class="ti ti-chevron-down arrow"></i></div></div>
+              <div class="chart-bars">
+                <div class="chart-bar-col"><div class="chart-bar" style="height:88%" data-val="88%"></div><div class="chart-bar-label">1° A</div></div>
+                <div class="chart-bar-col"><div class="chart-bar" style="height:92%" data-val="92%"></div><div class="chart-bar-label">1° B</div></div>
+                <div class="chart-bar-col"><div class="chart-bar" style="height:85%" data-val="85%"></div><div class="chart-bar-label">2° A</div></div>
+                <div class="chart-bar-col"><div class="chart-bar" style="height:78%" data-val="78%"></div><div class="chart-bar-label">2° B</div></div>
+                <div class="chart-bar-col"><div class="chart-bar" style="height:95%" data-val="95%"></div><div class="chart-bar-label">3° A</div></div>
+                <div class="chart-bar-col"><div class="chart-bar" style="height:90%" data-val="90%"></div><div class="chart-bar-label">3° B</div></div>
+                <div class="chart-bar-col"><div class="chart-bar" style="height:82%" data-val="82%"></div><div class="chart-bar-label">3° C</div></div>
+              </div>
+            </div>
+            <div class="panel-large">
+              <div class="panel-header"><div class="panel-title"><i class="ti ti-alert-triangle"></i>Alumnos con más incidencias</div><a style="font-size:11px;color:#800000;font-weight:600;text-decoration:none">Ver todos →</a></div>
+              <div class="ranking-item"><div class="ranking-num">1</div><div class="ranking-info"><div class="ranking-name">Carlos M. Sánchez Ortiz</div><div class="ranking-sub">2° B · NIA 240219</div></div><span class="pill pill-danger"><i class="ti ti-x"></i>8 faltas</span></div>
+              <div class="ranking-item"><div class="ranking-num">2</div><div class="ranking-info"><div class="ranking-name">Valeria E. Hernández Pérez</div><div class="ranking-sub">2° B · NIA 240218</div></div><span class="pill pill-danger"><i class="ti ti-x"></i>7 faltas</span></div>
+              <div class="ranking-item"><div class="ranking-num">3</div><div class="ranking-info"><div class="ranking-name">Luis F. Domínguez Reyes</div><div class="ranking-sub">3° C · NIA 230091</div></div><span class="pill pill-warning"><i class="ti ti-clock"></i>6 faltas</span></div>
+              <div class="ranking-item"><div class="ranking-num">4</div><div class="ranking-info"><div class="ranking-name">Brenda S. Aguilar Solís</div><div class="ranking-sub">1° A · NIA 250011</div></div><span class="pill pill-warning"><i class="ti ti-clock"></i>5 faltas</span></div>
+              <div class="ranking-item"><div class="ranking-num">5</div><div class="ranking-info"><div class="ranking-name">Iván J. Torres Ramírez</div><div class="ranking-sub">3° A · NIA 230155</div></div><span class="pill pill-warning"><i class="ti ti-clock"></i>5 faltas</span></div>
+            </div>
+          </div>
+          <div class="dashboard-row-3">
+            <div class="panel-large">
+              <div class="panel-header"><div class="panel-title"><i class="ti ti-file-text"></i>Citatorios recientes</div></div>
+              <div class="ranking-item"><div class="ranking-num" style="background:#FFF5F5"><i class="ti ti-file" style="color:#800000;font-size:14px"></i></div><div class="ranking-info"><div class="ranking-name">Carlos M. Sánchez · 2° B</div><div class="ranking-sub">Folio CIT-2026-0142 · 8 inasistencias</div></div><span style="font-size:11px;color:#888">Hoy</span></div>
+              <div class="ranking-item"><div class="ranking-num" style="background:#FFF5F5"><i class="ti ti-file" style="color:#800000;font-size:14px"></i></div><div class="ranking-info"><div class="ranking-name">Valeria E. Hernández · 2° B</div><div class="ranking-sub">Folio CIT-2026-0141 · 7 inasistencias</div></div><span style="font-size:11px;color:#888">Ayer</span></div>
+              <div class="ranking-item"><div class="ranking-num" style="background:#FFF5F5"><i class="ti ti-file" style="color:#800000;font-size:14px"></i></div><div class="ranking-info"><div class="ranking-name">Luis F. Domínguez · 3° C</div><div class="ranking-sub">Folio CIT-2026-0140 · 6 inasistencias</div></div><span style="font-size:11px;color:#888">2 días</span></div>
+            </div>
+            <div class="panel-large">
+              <div class="panel-header"><div class="panel-title"><i class="ti ti-bell-ringing"></i>Alertas activas</div></div>
+              <div class="ranking-item"><div class="ranking-num" style="background:#FFF3E0"><i class="ti ti-alert-triangle" style="color:#B45309;font-size:14px"></i></div><div class="ranking-info"><div class="ranking-name">5 inasistencias — riesgo de baja</div><div class="ranking-sub">Carlos M. Sánchez · 2° B</div></div><span class="pill pill-danger">Crítica</span></div>
+              <div class="ranking-item"><div class="ranking-num" style="background:#FFF3E0"><i class="ti ti-clock" style="color:#B45309;font-size:14px"></i></div><div class="ranking-info"><div class="ranking-name">3 retardos acumulados</div><div class="ranking-sub">Diego A. Castillo · 3° C</div></div><span class="pill pill-warning">Media</span></div>
+              <div class="ranking-item"><div class="ranking-num" style="background:#FFF3E0"><i class="ti ti-trending-down" style="color:#B45309;font-size:14px"></i></div><div class="ranking-info"><div class="ranking-name">Ausentismo en grupo 2° B</div><div class="ranking-sub">78% asistencia · debajo del promedio</div></div><span class="pill pill-warning">Media</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       11 — ADMINISTRACIÓN DE USUARIOS DEL SISTEMA
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-users-group"></i>
+    11 — Administración de usuarios del sistema
+    <span class="screen-label-sub">Director · Acceso exclusivo</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><div class="sidebar-logo"><i class="ti ti-school"></i></div><div class="sidebar-brand-text"><div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div><div class="sidebar-brand-sub">Control de asistencia</div></div></div>
+        <div class="sidebar-section">Dirección</div>
+        <div class="sidebar-item"><i class="ti ti-layout-dashboard"></i>Panel general</div>
+        <div class="sidebar-item active"><i class="ti ti-users-group"></i>Usuarios del sistema</div>
+        <div class="sidebar-section">Gestión</div>
+        <div class="sidebar-item"><i class="ti ti-users"></i>Alumnos</div>
+        <div class="sidebar-item"><i class="ti ti-user-heart"></i>Tutores</div>
+        <div class="sidebar-item"><i class="ti ti-barcode"></i>Códigos de barras</div>
+        <div class="sidebar-section">Comunicación</div>
+        <div class="sidebar-item"><i class="ti ti-message-2"></i>Mensajes SMS</div>
+        <div class="sidebar-item"><i class="ti ti-file-text"></i>Citatorios</div>
+        <div class="sidebar-section">Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-chart-bar"></i>Reportes</div>
+        <div class="sidebar-user"><div class="sidebar-avatar">LV</div><div class="sidebar-user-info"><div class="sidebar-user-name">Lara Velázquez</div><div class="sidebar-user-role">Director</div></div><i class="ti ti-logout sidebar-user-icon"></i></div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar usuario por nombre o cargo...</span></div>
+          <div class="topbar-actions"><div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>2026</div><div class="topbar-btn"><i class="ti ti-bell"></i></div></div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block"><div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Dirección · Usuarios del sistema</div><h1>Administración de cuentas</h1><span class="sub">Registra, modifica o desactiva cuentas y administra los permisos de acceso al sistema</span></div>
+            <div class="content-actions"><button class="btn btn-secondary"><i class="ti ti-shield"></i>Permisos</button><button class="btn btn-primary"><i class="ti ti-user-plus"></i>Nuevo usuario</button></div>
+          </div>
+          <div class="dashboard-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px">
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-info"><i class="ti ti-users-group"></i></div><div class="kpi-label">Total cuentas</div><div class="kpi-value">8</div></div>
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-success"><i class="ti ti-circle-check"></i></div><div class="kpi-label">Activas</div><div class="kpi-value">7</div></div>
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-danger"><i class="ti ti-user-off"></i></div><div class="kpi-label">Desactivadas</div><div class="kpi-value">1</div></div>
+            <div class="kpi-card"><div class="kpi-icon kpi-icon-warning"><i class="ti ti-shield-lock"></i></div><div class="kpi-label">Roles únicos</div><div class="kpi-value">3</div></div>
+          </div>
+          <div class="filter-row">
+            <div class="filter-pill active"><i class="ti ti-shield"></i>Todos los roles<i class="ti ti-chevron-down arrow"></i></div>
+            <div class="filter-pill"><i class="ti ti-circle-check"></i>Estado: Todos<i class="ti ti-chevron-down arrow"></i></div>
+            <div style="margin-left:auto;font-size:12px;color:#666"><strong style="color:#333">5</strong> de 8 usuarios</div>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <table class="data-table">
+              <thead><tr><th>Usuario</th><th>Rol</th><th>Último acceso</th><th>Sesiones del mes</th><th>Estado</th><th style="text-align:right">Acciones</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">LV</div><div class="table-avatar-info"><div class="table-avatar-name">Lara Velázquez Liberato</div><div class="table-avatar-mail">lvelazquez@bgomh.edu.mx</div></div></div></td>
+                  <td><span class="pill pill-danger"><i class="ti ti-shield-check"></i>Director</span></td><td>Hoy · 08:15</td><td><strong>22</strong></td><td><span class="pill pill-success"><i class="ti ti-circle-check"></i>Activo</span></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-key"></i></div><div class="table-icon-btn"><i class="ti ti-dots-vertical"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">LH</div><div class="table-avatar-info"><div class="table-avatar-name">Luz Hernández Aguilar</div><div class="table-avatar-mail">lhernandez@bgomh.edu.mx</div></div></div></td>
+                  <td><span class="pill pill-warning"><i class="ti ti-clipboard-list"></i>Administrativo</span></td><td>Hoy · 07:42</td><td><strong>20</strong></td><td><span class="pill pill-success"><i class="ti ti-circle-check"></i>Activo</span></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-key"></i></div><div class="table-icon-btn"><i class="ti ti-dots-vertical"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">WT</div><div class="table-avatar-info"><div class="table-avatar-name">William Trejo González</div><div class="table-avatar-mail">wtrejo@bgomh.edu.mx</div></div></div></td>
+                  <td><span class="pill pill-warning"><i class="ti ti-clipboard-list"></i>Administrativo</span></td><td>Ayer · 16:30</td><td><strong>18</strong></td><td><span class="pill pill-success"><i class="ti ti-circle-check"></i>Activo</span></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-key"></i></div><div class="table-icon-btn"><i class="ti ti-dots-vertical"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">JR</div><div class="table-avatar-info"><div class="table-avatar-name">José Ramírez Castro</div><div class="table-avatar-mail">jramirez@bgomh.edu.mx</div></div></div></td>
+                  <td><span class="pill pill-success"><i class="ti ti-user-shield"></i>Prefecto</span></td><td>Hoy · 07:38</td><td><strong>22</strong></td><td><span class="pill pill-success"><i class="ti ti-circle-check"></i>Activo</span></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-key"></i></div><div class="table-icon-btn"><i class="ti ti-dots-vertical"></i></div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="table-avatar"><div class="table-avatar-circle">MP</div><div class="table-avatar-info"><div class="table-avatar-name">Miguel Ángel Pérez Soto</div><div class="table-avatar-mail">mperez@bgomh.edu.mx</div></div></div></td>
+                  <td><span class="pill pill-success"><i class="ti ti-user-shield"></i>Prefecto</span></td><td>Hace 1 mes</td><td><strong>0</strong></td><td><span class="pill pill-danger"><i class="ti ti-user-off"></i>Desactivado</span></td>
+                  <td><div class="table-actions"><div class="table-icon-btn"><i class="ti ti-pencil"></i></div><div class="table-icon-btn"><i class="ti ti-key"></i></div><div class="table-icon-btn"><i class="ti ti-dots-vertical"></i></div></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       12 — GENERADOR DE CÓDIGO DE BARRAS
+       ============================================ -->
+  <div class="screen-label">
+    <i class="ti ti-barcode"></i>
+    12 — Generador de código de barras
+    <span class="screen-label-sub">Administrativo · Credenciales escolares</span>
+  </div>
+  <div class="screen">
+    <div style="display:flex;height:100%">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><div class="sidebar-logo"><i class="ti ti-school"></i></div><div class="sidebar-brand-text"><div class="sidebar-brand-name">B.G.O. Miguel Hidalgo</div><div class="sidebar-brand-sub">Control de asistencia</div></div></div>
+        <div class="sidebar-section">Gestión</div>
+        <div class="sidebar-item"><i class="ti ti-users"></i>Alumnos</div>
+        <div class="sidebar-item"><i class="ti ti-user-heart"></i>Tutores</div>
+        <div class="sidebar-item active"><i class="ti ti-barcode"></i>Códigos de barras</div>
+        <div class="sidebar-section">Comunicación</div>
+        <div class="sidebar-item"><i class="ti ti-message-2"></i>Mensajes SMS</div>
+        <div class="sidebar-item"><i class="ti ti-file-text"></i>Citatorios</div>
+        <div class="sidebar-section">Reportes</div>
+        <div class="sidebar-item"><i class="ti ti-chart-bar"></i>Reportes</div>
+        <div class="sidebar-user"><div class="sidebar-avatar">LH</div><div class="sidebar-user-info"><div class="sidebar-user-name">Luz Hernández</div><div class="sidebar-user-role">Administrativo</div></div><i class="ti ti-logout sidebar-user-icon"></i></div>
+      </aside>
+      <div class="main-area">
+        <div class="topbar">
+          <div class="topbar-search"><i class="ti ti-search"></i><span class="topbar-search-text">Buscar alumno...</span></div>
+          <div class="topbar-actions"><div class="topbar-date"><strong>Martes, 5 de mayo</strong><br>2026</div><div class="topbar-btn"><i class="ti ti-bell"></i></div></div>
+        </div>
+        <div class="content">
+          <div class="content-header">
+            <div class="content-title-block"><div class="breadcrumb"><i class="ti ti-home"></i>Inicio · Gestión · Códigos de barras</div><h1>Generador de código de barras</h1><span class="sub">Captura el NIA del alumno para generar su código de barras e imprimirlo en la credencial escolar</span></div>
+            <div class="content-actions"><button class="btn btn-secondary"><i class="ti ti-printer"></i>Imprimir lote</button></div>
+          </div>
+          <div class="barcode-grid">
+            <div class="barcode-form-card">
+              <div class="form-section-title" style="margin-top:0"><i class="ti ti-search"></i>Búsqueda del alumno</div>
+              <span class="field-label">NIA del alumno</span>
+              <div class="barcode-input-row">
+                <div class="input-wrapper" style="flex:1"><i class="ti ti-id"></i><input type="text" class="form-input" value="240137"></div>
+                <button class="btn btn-primary"><i class="ti ti-search"></i>Buscar</button>
+              </div>
+              <div class="alumno-found-card">
+                <div class="alumno-found-photo"><i class="ti ti-user-circle"></i></div>
+                <div class="alumno-found-info">
+                  <div class="alumno-found-name">Ángel Mauricio Martínez Ruiz</div>
+                  <div class="alumno-found-meta"><i class="ti ti-school" style="color:#800000"></i> 2° A · Ciclo 2025 - 2026</div>
+                  <div class="alumno-found-meta"><i class="ti ti-circle-check" style="color:#2E7D32"></i> Estado: Activo</div>
+                </div>
+              </div>
+            </div>
+            <div class="barcode-preview-card">
+              <div class="form-section-title" style="margin-top:0"><i class="ti ti-eye"></i>Vista previa de la credencial</div>
+              <div class="barcode-display-area">
+                <div class="barcode-credential">
+                  <div class="barcode-cred-header">B.G.O. Miguel Hidalgo</div>
+                  <div class="barcode-bars">
+                    <div class="bar" style="width:2px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:3px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:1px"></div><div class="bar" style="width:2px;background:#fff"></div><div class="bar" style="width:4px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:2px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:1px"></div><div class="bar" style="width:2px;background:#fff"></div><div class="bar" style="width:3px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:1px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:2px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:4px"></div><div class="bar" style="width:2px;background:#fff"></div><div class="bar" style="width:1px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:3px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:2px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:1px"></div><div class="bar" style="width:2px;background:#fff"></div><div class="bar" style="width:3px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:1px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:2px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:4px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:2px"></div><div class="bar" style="width:2px;background:#fff"></div><div class="bar" style="width:1px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:3px"></div><div class="bar" style="width:1px;background:#fff"></div><div class="bar" style="width:1px"></div><div class="bar" style="width:2px;background:#fff"></div><div class="bar" style="width:2px"></div>
+                  </div>
+                  <div class="barcode-number">240137</div>
+                  <div class="barcode-cred-name">Ángel M. Martínez Ruiz · 2° A</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="btn btn-primary"><i class="ti ti-download"></i>Descargar PNG</button></div>
+            </div>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <div style="padding:16px 22px;border-bottom:1px solid #EFEFEF"><div class="panel-title"><i class="ti ti-history"></i>Historial de códigos generados</div></div>
+            <table class="data-table">
+              <thead><tr><th>NIA</th><th>Alumno</th><th>Grupo</th><th>Fecha de generación</th><th>Estado</th><th style="text-align:right">Acciones</th></tr></thead>
+              <tbody>
+                <tr><td><strong>240137</strong></td><td><div class="table-avatar"><div class="table-avatar-circle">AM</div><div class="table-avatar-info"><div class="table-avatar-name">Ángel M. Martínez Ruiz</div></div></div></td><td>2° A</td><td>05/05/2026 · 09:14</td><td><span class="pill pill-success"><i class="ti ti-check"></i>Generado</span></td><td><div class="table-actions"><button class="btn btn-secondary" style="padding:5px 12px;font-size:11px"><i class="ti ti-download"></i>Volver a descargar</button></div></td></tr>
+                <tr><td><strong>250042</strong></td><td><div class="table-avatar"><div class="table-avatar-circle">SR</div><div class="table-avatar-info"><div class="table-avatar-name">Sofía I. Ramírez López</div></div></div></td><td>1° B</td><td>05/05/2026 · 08:45</td><td><span class="pill pill-success"><i class="ti ti-check"></i>Generado</span></td><td><div class="table-actions"><button class="btn btn-secondary" style="padding:5px 12px;font-size:11px"><i class="ti ti-download"></i>Volver a descargar</button></div></td></tr>
+                <tr><td><strong>230089</strong></td><td><div class="table-avatar"><div class="table-avatar-circle">DC</div><div class="table-avatar-info"><div class="table-avatar-name">Diego A. Castillo Vega</div></div></div></td><td>3° C</td><td>04/05/2026 · 15:20</td><td><span class="pill pill-success"><i class="ti ti-check"></i>Generado</span></td><td><div class="table-actions"><button class="btn btn-secondary" style="padding:5px 12px;font-size:11px"><i class="ti ti-download"></i>Volver a descargar</button></div></td></tr>
+                <tr><td><strong>230154</strong></td><td><div class="table-avatar"><div class="table-avatar-circle">ET</div><div class="table-avatar-info"><div class="table-avatar-name">Emiliano J. Torres Méndez</div></div></div></td><td>3° A</td><td>04/05/2026 · 11:38</td><td><span class="pill pill-success"><i class="ti ti-check"></i>Generado</span></td><td><div class="table-actions"><button class="btn btn-secondary" style="padding:5px 12px;font-size:11px"><i class="ti ti-download"></i>Volver a descargar</button></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
