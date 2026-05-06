@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel del director</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    body { background: #f2f2f2; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 2rem; }
+    .screen { background: #fff; border: 1.5px solid #ccc; border-radius: 8px; width: 760px; padding: 28px; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid #ddd; margin-bottom: 24px; }
+    .topbar-left { display: flex; align-items: center; gap: 10px; }
+    .logo-box { width: 32px; height: 32px; border: 1.5px solid #999; border-radius: 5px; background: #e8e8e8; flex-shrink: 0; }
+    .topbar-title { font-size: 13px; font-weight: 700; color: #222; }
+    .topbar-sub { font-size: 10px; color: #999; }
+    .user-chip { display: flex; align-items: center; gap: 6px; border: 1px solid #ccc; border-radius: 20px; padding: 4px 10px; font-size: 10px; color: #555; }
+    .user-dot { width: 14px; height: 14px; border-radius: 50%; background: #ddd; border: 1px solid #bbb; }
+
+    .section-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; display: block; }
+    .section-title { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .section-sub { font-size: 11px; color: #999; margin-bottom: 20px; }
+
+    .filter-row { display: flex; gap: 8px; margin-bottom: 20px; align-items: center; }
+    .filter-pill { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border: 1.5px solid #ccc; border-radius: 6px; background: #fff; font-size: 11px; color: #444; }
+    .filter-arrow { width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #888; }
+    .filter-spacer { flex: 1; }
+    .btn-export { height: 36px; padding: 0 16px; background: #333; border: none; border-radius: 6px; color: #fff; font-size: 11px; font-weight: 600; }
+
+    .indicators { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .ind-card { border: 1.5px solid #ccc; border-radius: 6px; padding: 14px 16px; background: #fafafa; }
+    .ind-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+    .ind-value { height: 22px; background: #ccc; border-radius: 4px; width: 60%; margin-bottom: 8px; }
+    .ind-foot { display: flex; align-items: center; gap: 6px; }
+    .ind-foot-line { height: 6px; background: #e0e0e0; border-radius: 3px; flex: 1; }
+
+    .grid-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .panel { border: 1.5px solid #ccc; border-radius: 6px; padding: 16px 18px; background: #fafafa; }
+    .panel-title { font-size: 12px; font-weight: 700; color: #222; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+    .panel-title-action { font-size: 10px; color: #888; }
+
+    .chart-box { height: 180px; border: 1.5px solid #ddd; border-radius: 6px; background: #fff; padding: 14px; display: flex; align-items: flex-end; gap: 12px; }
+    .bar { flex: 1; background: #ccc; border-radius: 3px 3px 0 0; }
+    .b1 { height: 60%; }
+    .b2 { height: 80%; }
+    .b3 { height: 50%; }
+    .b4 { height: 90%; }
+    .b5 { height: 70%; }
+    .b6 { height: 45%; }
+    .b7 { height: 75%; }
+
+    .ranking-list { display: flex; flex-direction: column; gap: 12px; }
+    .rank-item { display: flex; align-items: center; gap: 10px; }
+    .rank-num { width: 22px; height: 22px; border-radius: 50%; background: #e8e8e8; border: 1px solid #ccc; font-size: 10px; color: #555; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .rank-content { flex: 1; }
+    .rank-name { height: 7px; background: #ccc; border-radius: 3px; width: 80%; margin-bottom: 4px; }
+    .rank-sub { height: 5px; background: #e0e0e0; border-radius: 3px; width: 50%; }
+    .rank-pill { font-size: 9px; padding: 2px 8px; border: 1px solid #999; border-radius: 20px; color: #555; background: #efefef; }
+
+    .alerts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .alert-card { border: 1.5px solid #ccc; border-radius: 6px; padding: 14px 16px; background: #fff; }
+    .alert-head { font-size: 11px; font-weight: 700; color: #222; margin-bottom: 10px; }
+    .alert-line { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+    .alert-line:last-child { border-bottom: none; }
+    .alert-dot { width: 8px; height: 8px; border-radius: 50%; background: #aaa; flex-shrink: 0; }
+    .alert-text { flex: 1; height: 6px; background: #ddd; border-radius: 3px; }
+    .alert-time { font-size: 9px; color: #aaa; }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="logo-box"></div>
+        <div>
+          <div class="topbar-title">Panel del director</div>
+          <div class="topbar-sub">B.G.O. "Miguel Hidalgo"</div>
+        </div>
+      </div>
+      <div class="user-chip"><div class="user-dot"></div>Director</div>
+    </div>
+
+    <span class="section-label">Resumen general</span>
+    <p class="section-title">Indicadores de asistencia</p>
+    <p class="section-sub">Información consolidada del corte actual para la toma de decisiones</p>
+
+    <div class="filter-row">
+      <div class="filter-pill">Corte<div class="filter-arrow"></div></div>
+      <div class="filter-pill">Grupo<div class="filter-arrow"></div></div>
+      <div class="filter-pill">Periodo<div class="filter-arrow"></div></div>
+      <div class="filter-spacer"></div>
+      <div class="btn-export">Exportar reporte</div>
+    </div>
+
+    <div class="indicators">
+      <div class="ind-card">
+        <div class="ind-label">Asistencias</div>
+        <div class="ind-value"></div>
+        <div class="ind-foot"><div class="ind-foot-line"></div></div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-label">Inasistencias</div>
+        <div class="ind-value"></div>
+        <div class="ind-foot"><div class="ind-foot-line"></div></div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-label">Retardos</div>
+        <div class="ind-value"></div>
+        <div class="ind-foot"><div class="ind-foot-line"></div></div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-label">Justificados</div>
+        <div class="ind-value"></div>
+        <div class="ind-foot"><div class="ind-foot-line"></div></div>
+      </div>
+    </div>
+
+    <div class="grid-row">
+      <div class="panel">
+        <div class="panel-title">
+          Asistencia por grupo
+          <span class="panel-title-action">Ver detalle</span>
+        </div>
+        <div class="chart-box">
+          <div class="bar b1"></div>
+          <div class="bar b2"></div>
+          <div class="bar b3"></div>
+          <div class="bar b4"></div>
+          <div class="bar b5"></div>
+          <div class="bar b6"></div>
+          <div class="bar b7"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">
+          Alumnos con más incidencias
+          <span class="panel-title-action">Ver todos</span>
+        </div>
+        <div class="ranking-list">
+          <div class="rank-item">
+            <div class="rank-num">1</div>
+            <div class="rank-content">
+              <div class="rank-name"></div>
+              <div class="rank-sub"></div>
+            </div>
+            <span class="rank-pill">8 faltas</span>
+          </div>
+          <div class="rank-item">
+            <div class="rank-num">2</div>
+            <div class="rank-content">
+              <div class="rank-name"></div>
+              <div class="rank-sub"></div>
+            </div>
+            <span class="rank-pill">7 faltas</span>
+          </div>
+          <div class="rank-item">
+            <div class="rank-num">3</div>
+            <div class="rank-content">
+              <div class="rank-name"></div>
+              <div class="rank-sub"></div>
+            </div>
+            <span class="rank-pill">6 faltas</span>
+          </div>
+          <div class="rank-item">
+            <div class="rank-num">4</div>
+            <div class="rank-content">
+              <div class="rank-name"></div>
+              <div class="rank-sub"></div>
+            </div>
+            <span class="rank-pill">5 faltas</span>
+          </div>
+          <div class="rank-item">
+            <div class="rank-num">5</div>
+            <div class="rank-content">
+              <div class="rank-name"></div>
+              <div class="rank-sub"></div>
+            </div>
+            <span class="rank-pill">5 faltas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alerts-row">
+      <div class="alert-card">
+        <div class="alert-head">Citatorios generados</div>
+        <div class="alert-line">
+          <div class="alert-dot"></div>
+          <div class="alert-text"></div>
+          <span class="alert-time">Hoy</span>
+        </div>
+        <div class="alert-line">
+          <div class="alert-dot"></div>
+          <div class="alert-text"></div>
+          <span class="alert-time">Ayer</span>
+        </div>
+        <div class="alert-line">
+          <div class="alert-dot"></div>
+          <div class="alert-text"></div>
+          <span class="alert-time">Hace 2 días</span>
+        </div>
+      </div>
+
+      <div class="alert-card">
+        <div class="alert-head">Alertas activas</div>
+        <div class="alert-line">
+          <div class="alert-dot"></div>
+          <div class="alert-text"></div>
+          <span class="alert-time">5 días</span>
+        </div>
+        <div class="alert-line">
+          <div class="alert-dot"></div>
+          <div class="alert-text"></div>
+          <span class="alert-time">3 días</span>
+        </div>
+        <div class="alert-line">
+          <div class="alert-dot"></div>
+          <div class="alert-text"></div>
+          <span class="alert-time">2 días</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
