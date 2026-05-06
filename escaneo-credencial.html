@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escaneo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    body { background: #f2f2f2; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 2rem; }
+    .screen { background: #fff; border: 1.5px solid #ccc; border-radius: 8px; width: 480px; padding: 28px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid #ddd; margin-bottom: 24px; }
+    .topbar-left { display: flex; align-items: center; gap: 10px; }
+    .logo-box { width: 32px; height: 32px; border: 1.5px solid #999; border-radius: 5px; background: #e8e8e8; flex-shrink: 0; }
+    .topbar-title { font-size: 13px; font-weight: 700; color: #222; }
+    .topbar-sub { font-size: 10px; color: #999; }
+    .user-chip { display: flex; align-items: center; gap: 6px; border: 1px solid #ccc; border-radius: 20px; padding: 4px 10px; font-size: 10px; color: #555; }
+    .user-dot { width: 14px; height: 14px; border-radius: 50%; background: #ddd; border: 1px solid #bbb; }
+    .section-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; display: block; }
+    .section-title { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .section-sub { font-size: 11px; color: #999; margin-bottom: 20px; }
+    .scan-info { display: flex; gap: 16px; align-items: stretch; margin-bottom: 20px; }
+    .photo-block { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
+    .photo-box { width: 72px; height: 88px; border: 1.5px solid #ccc; border-radius: 6px; background: #e8e8e8; display: flex; align-items: center; justify-content: center; }
+    .photo-person { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .person-head { width: 20px; height: 20px; border-radius: 50%; background: #bbb; }
+    .person-body { width: 28px; height: 18px; border-radius: 14px 14px 0 0; background: #bbb; margin-top: 2px; }
+    .photo-label { font-size: 9px; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; }
+    .scan-details { flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+    .check-block { display: flex; align-items: center; gap: 10px; border: 1.5px solid #ccc; border-radius: 6px; padding: 10px 12px; background: #fff; }
+    .check-box { width: 22px; height: 22px; border: 2px solid #bbb; border-radius: 4px; background: #e8e8e8; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .check-mark { width: 10px; height: 6px; border-left: 2px solid #666; border-bottom: 2px solid #666; transform: rotate(-45deg) translateY(-1px); }
+    .check-text { font-size: 11px; color: #444; font-weight: 600; }
+    .check-sub { font-size: 10px; color: #aaa; margin-top: 2px; }
+    .date-block { border: 1.5px solid #ccc; border-radius: 6px; padding: 10px 12px; background: #fff; }
+    .date-label-small { font-size: 9px; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .date-row { display: flex; gap: 8px; }
+    .date-cell { flex: 1; }
+    .date-cell-label { font-size: 8px; color: #bbb; margin-bottom: 4px; }
+    .date-cell-line { height: 7px; background: #e0e0e0; border-radius: 3px; }
+    .divider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .divider-line { flex: 1; height: 1px; background: #ddd; }
+    .divider-text { font-size: 10px; color: #bbb; }
+    .manual-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .input-box { flex: 1; height: 36px; border: 1.5px solid #ccc; border-radius: 6px; background: #fafafa; display: flex; align-items: center; padding: 0 12px; gap: 8px; }
+    .input-placeholder { width: 14px; height: 14px; border-radius: 50%; background: #ddd; border: 1px solid #bbb; flex-shrink: 0; }
+    .input-line { height: 1px; flex: 1; background: #ddd; }
+    .btn-secondary { height: 36px; padding: 0 16px; border: 1.5px solid #999; border-radius: 6px; background: #fff; font-size: 11px; font-weight: 600; color: #444; cursor: default; white-space: nowrap; }
+    .btn-full { width: 100%; height: 40px; background: #333; border: none; border-radius: 6px; color: #fff; font-size: 13px; font-weight: 600; cursor: default; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; }
+    .result-card { border: 1.5px solid #ccc; border-radius: 8px; padding: 14px 16px; background: #fafafa; }
+    .result-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; background: #e0e0e0; border: 1px solid #ccc; flex-shrink: 0; }
+    .result-name-line { height: 8px; width: 120px; background: #ddd; border-radius: 4px; margin-bottom: 5px; }
+    .result-sub-line { height: 6px; width: 80px; background: #e8e8e8; border-radius: 4px; }
+    .status-pill { margin-left: auto; border: 1.5px solid #999; border-radius: 20px; padding: 3px 10px; font-size: 10px; color: #555; background: #efefef; }
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .cell-label { font-size: 9px; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .cell-line { height: 7px; background: #e0e0e0; border-radius: 3px; width: 70%; }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="logo-box"></div>
+        <div>
+          <div class="topbar-title">Registro de asistencia</div>
+          <div class="topbar-sub">B.G.O. "Miguel Hidalgo"</div>
+        </div>
+      </div>
+      <div class="user-chip"><div class="user-dot"></div>Administrativo</div>
+    </div>
+
+    <span class="section-label">Módulo de acceso</span>
+    <p class="section-title">Escaneo de credencial</p>
+    <p class="section-sub">Acerca la credencial al lector o ingresa el NIA manualmente</p>
+
+    <div class="scan-info">
+      <div class="photo-block">
+        <div class="photo-box">
+          <div class="photo-person">
+            <div class="person-head"></div>
+            <div class="person-body"></div>
+          </div>
+        </div>
+        <span class="photo-label">Foto</span>
+      </div>
+      <div class="scan-details">
+        <div class="check-block">
+          <div class="check-box"><div class="check-mark"></div></div>
+          <div>
+            <div class="check-text">Alumno registrado</div>
+            <div class="check-sub">Ingreso confirmado</div>
+          </div>
+        </div>
+        <div class="date-block">
+          <div class="date-label-small">Fecha y hora de ingreso</div>
+          <div class="date-row">
+            <div class="date-cell">
+              <div class="date-cell-label">Fecha</div>
+              <div class="date-cell-line"></div>
+            </div>
+            <div class="date-cell">
+              <div class="date-cell-label">Hora</div>
+              <div class="date-cell-line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-row">
+      <div class="divider-line"></div>
+      <span class="divider-text">o ingreso manual</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="manual-row">
+      <div class="input-box"><div class="input-placeholder"></div><div class="input-line"></div></div>
+      <div class="btn-secondary">Registrar</div>
+    </div>
+
+    <div class="btn-full">Confirmar registro</div>
+
+    <span class="section-label">Último registro</span>
+    <div class="result-card">
+      <div class="result-header">
+        <div class="avatar"></div>
+        <div>
+          <div class="result-name-line"></div>
+          <div class="result-sub-line"></div>
+        </div>
+        <div class="status-pill">Asistencia</div>
+      </div>
+      <div class="result-grid">
+        <div><div class="cell-label">NIA</div><div class="cell-line"></div></div>
+        <div><div class="cell-label">Grupo</div><div class="cell-line"></div></div>
+        <div><div class="cell-label">Hora</div><div class="cell-line"></div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
