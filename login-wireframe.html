@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    body { background: #f2f2f2; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .screen {
+      background: #fff;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      width: 360px;
+      padding: 32px 28px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    .logo-box {
+      width: 38px; height: 38px;
+      border: 1.5px solid #999;
+      border-radius: 6px;
+      background: #e8e8e8;
+      flex-shrink: 0;
+    }
+    .header-text .name { font-size: 12px; font-weight: 600; color: #222; }
+    .header-text .sub { font-size: 11px; color: #888; margin-top: 2px; }
+
+    .section-title { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .section-sub { font-size: 12px; color: #999; margin-bottom: 20px; }
+
+    .field-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: block; }
+
+    .role-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 18px; }
+    .role-box {
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      padding: 12px 6px 10px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 6px;
+      background: #fafafa;
+    }
+    .role-box.selected { border-color: #555; background: #efefef; }
+    .role-icon {
+      width: 24px; height: 24px;
+      border: 1.5px solid #aaa;
+      border-radius: 50%;
+      background: #e0e0e0;
+    }
+    .role-label { font-size: 10px; color: #444; text-align: center; }
+
+    .input-box {
+      width: 100%;
+      height: 38px;
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      background: #fafafa;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+    }
+    .input-placeholder {
+      width: 16px; height: 16px;
+      border: 1px solid #bbb;
+      border-radius: 50%;
+      background: #ddd;
+      flex-shrink: 0;
+    }
+    .input-line {
+      height: 1px;
+      flex: 1;
+      background: #ddd;
+      border-radius: 2px;
+    }
+
+    .btn {
+      width: 100%;
+      height: 40px;
+      background: #333;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 8px;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="header">
+      <div class="logo-box"></div>
+      <div class="header-text">
+        <div class="name">B.G.O. "Miguel Hidalgo"</div>
+        <div class="sub">Sistema de control de asistencia</div>
+      </div>
+    </div>
+
+    <p class="section-title">Acceso al sistema</p>
+    <p class="section-sub">Selecciona tu perfil e ingresa tus datos</p>
+
+    <span class="field-label">Perfil de usuario</span>
+    <div class="role-grid">
+      <div class="role-box selected">
+        <div class="role-icon"></div>
+        <span class="role-label">Director</span>
+      </div>
+      <div class="role-box">
+        <div class="role-icon"></div>
+        <span class="role-label">Administrativo</span>
+      </div>
+      <div class="role-box">
+        <div class="role-icon"></div>
+        <span class="role-label">Docente</span>
+      </div>
+    </div>
+
+    <span class="field-label">Usuario</span>
+    <div class="input-box">
+      <div class="input-placeholder"></div>
+      <div class="input-line"></div>
+    </div>
+
+    <span class="field-label">Contraseña</span>
+    <div class="input-box">
+      <div class="input-placeholder"></div>
+      <div class="input-line"></div>
+    </div>
+
+    <div class="btn">Ingresar</div>
+  </div>
+</body>
+</html>
